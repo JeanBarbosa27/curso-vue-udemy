@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Eventos V2 | Vue JS</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <h1>{{ contador }}</h1>
+      <button v-on:click="somar1">Somar 1</button>
+      <p v-on:mousemove="atualizarXY">Mouse: {{ x }} e {{ y }}</p>
+    </div>
+    <script type="text/javascript">
+      new Vue({
+        el: "#app",
+        data: {
+          contador: 0,
+          x: 0,
+          y: 0
+        },
+        methods: {
+          somar1() {
+            return this.contador++;
+          },
+          atualizarXY(event) {
+            this.x = event.clientX;
+            this.y = event.clientY;
+          }
+        }
+      });
+    </script>
+  </body>
+</html>
