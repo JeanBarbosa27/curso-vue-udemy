@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Estilo V1 | Vue JS</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  </head>
+  <style>
+    #app {
+      display: flex;
+      justify-content: space-around;
+    }
+    .demo {
+      width: 50px;
+      height: 50px;
+      background: #cccccc;
+    }
+    .c1 {
+      background: red;
+    }
+    .c2 {
+      background: green;
+    }
+    .c3 {
+      background: blue;
+    }
+  </style>
+  <body>
+    <div id="app">
+      <div class="demo" :class="{c1: alteraCor}" @click="alteraCor = !alteraCor"></div>
+      <div class="demo" :class="{c2: alteraCor}" @click="alteraCor = !alteraCor"></div>
+      <div class="demo" :class="{c3: alteraCor}" @click="alteraCor = !alteraCor"></div>
+    </div>
+    <script type="text/javascript">
+      new Vue({
+        el: "#app",
+        data: {
+          alteraCor: false
+        }
+      });
+    </script>
+  </body>
+</html>
