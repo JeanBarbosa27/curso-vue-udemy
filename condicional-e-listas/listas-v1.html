@@ -5,23 +5,39 @@
   <meta name="viewport"
         content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Condicionais V1 | Curso VueJS</title>
+  <title>Listas V1 | Curso VueJS</title>
   <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 </head>
 <body>
   <div id="app">
-    <p v-if="logado">Usuário logado {{ nome }} </p>
-    <p v-else>Nenhum usuário logado</p>
-    <button @click="logado = !logado">
-      {{ logado ? "Sair" : "Entrar" }}
-    </button>
+    <ul>
+      <li v-for="cor in cores">
+        {{ cor }}
+      </li>
+    </ul>
   </div>
   <script type="text/javascript">
     new Vue({
       el: "#app",
       data: {
-        logado: false,
-        nome: "Jean"
+        cores: [
+          'vermelho',
+          'verde',
+          'amarelo',
+          'azul'
+        ],
+        pessoas: [
+          {
+            nome: "Ana",
+            idade: 26,
+            peso: 59
+          },
+          {
+            nome: "Guilherme",
+            idade: 22,
+            peso: 89
+          },
+        ]
       }
     })
   </script>
