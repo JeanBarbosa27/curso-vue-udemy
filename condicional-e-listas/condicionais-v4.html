@@ -5,7 +5,7 @@
   <meta name="viewport"
         content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Condicionais V3 | Curso VueJS</title>
+  <title>Condicionais V4 | Curso VueJS</title>
   <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 </head>
 <body>
@@ -20,6 +20,13 @@
       {{ logado ? "Sair" : "Entrar" }}
     </button>
     <input type="checkbox" v-model="anonimo">
+    <hr>
+    <footer v-show="logado">
+      Desenvolvido para você!
+    </footer>
+    <footer v-show="!logado">
+      Desenvolvido para você que é desconhecido!
+    </footer>
   </div>
   <script type="text/javascript">
     new Vue({
