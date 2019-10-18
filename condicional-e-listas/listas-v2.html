@@ -5,14 +5,14 @@
   <meta name="viewport"
         content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Listas V1 | Curso VueJS</title>
+  <title>Listas V2 | Curso VueJS</title>
   <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 </head>
 <body>
   <div id="app">
-    <ul>
-      <li v-for="cor in cores">
-        {{ cor }}
+    <ul style="list-style: none;">
+      <li v-for="(cor, indice) in cores">
+        {{ indice + 1 }}: {{ cor }}
       </li>
     </ul>
   </div>
