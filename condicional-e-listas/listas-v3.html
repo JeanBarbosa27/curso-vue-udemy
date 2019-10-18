@@ -5,7 +5,7 @@
   <meta name="viewport"
         content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Listas V2 | Curso VueJS</title>
+  <title>Listas V3 | Curso VueJS</title>
   <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 </head>
 <body>
@@ -15,6 +15,11 @@
         {{ indice + 1 }}: {{ cor }}
       </li>
     </ul>
+    <hr>
+    <template v-for="(cor, indice) in cores">
+      <span>{{ cor }} </span>
+      <span>{{ indice }} </span>
+    </template>
   </div>
   <script type="text/javascript">
     new Vue({
