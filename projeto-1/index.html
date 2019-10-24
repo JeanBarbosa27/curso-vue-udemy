@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>O Matador de monstros</title>
+  <link rel="stylesheet" href="estilo.css">
+  <script src="https://unpkg.com/vue"></script>
+  <script src="app.js"></script>
+</head>
+<body>
+  <div v-if="!jogoIniciado" class="cartao">
+    <h1 class="titulo">O Matador de Monstros</h1>
+    <button class="iniciar">iniciar novo jogo</button>
+  </div>
+  <div v-else>
+    <div class="grupo cartao">
+      <div
+        v-for="personagem in personagens"
+        :key="personagem.id"
+        class="dados-personagem"
+      >
+        <span class="identificador-personagem">{{personagem.nome}}</span>
+        <div class="barra">
+          <div
+            class="barra-de-vida"
+            :class="{ problema: personagem.vida < 20 }"
+            :style="{ width: personagem.vida + '%' }"></div>
+        </div>
+        <span class="percentual-de-vida"></span>
+      </div>
+    </div>
+    <div class="cartao acoes">
+      <button class="bottao ataque">ataque</button>
+      <button class="bottao ataque-especial">ataque especial</button>
+      <button class="bottao curar">curar</button>
+      <button class="bottao desistir">desistir</button>
+    </div>
+  </div>
+</body>
+</html>
