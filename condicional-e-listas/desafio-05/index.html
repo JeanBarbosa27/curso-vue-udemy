@@ -48,17 +48,17 @@
   <h2>#04</h2>
   <ul>
     <li v-for="(valor, chave) in aluno" :key="chave+valor">
-      <p v-if="typeof valor !== 'object'">
-        <span>
-          {{ valor }}
-        </span>
-      </p>
-      <p v-else>
-        <div v-for="item in valor" :key="item">
-          {{typeof valor}}: {{ item }}
-          {{ typeof valor === 'object' }}
-        </div>
-      </p>
+      <template v-if="!Array.isArray(valor )">
+        <p>{{ chave + ": " + valor }}</p>
+      </template>
+      <template v-else>
+        <span>Notas:</span>
+        <ul>
+          <li v-for="nota in valor" :key="nota">
+            {{ nota.toString().replace(".",",") }}
+          </li>
+        </ul>
+      </template>
     </li>
   </ul>
 </div>
