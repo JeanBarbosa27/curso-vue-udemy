@@ -1,48 +1,68 @@
 <!doctype html>
 <html lang="pt-br">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport"
-        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta charset="UTF-8"/>
+  <meta
+      name="viewport"
+      content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
+  <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
   <title>O Matador de monstros</title>
-  <link rel="stylesheet" href="estilo.css">
+  <link rel="stylesheet" href="estilo.css"/>
   <script src="https://unpkg.com/vue"></script>
-  <script src="app.js"></script>
+
 </head>
 <body>
-  <div v-if="!jogoIniciado" class="cartao">
+<div id="matadorMonstros" class="jogo" :class="{ 'jogo--iniciado': jogoIniciado }">
+  <div class="cartao">
     <h1 class="titulo">O Matador de Monstros</h1>
-    <button class="iniciar">iniciar novo jogo</button>
+    <button v-if="!jogoIniciado || gameOver" class="botao botao__iniciar" @click="iniciarJogo">iniciar novo jogo</button>
   </div>
-  <div v-else>
+  <div v-if="jogoIniciado">
     <div class="grupo cartao">
       <div
-        v-for="personagem in personagens"
-        :key="personagem.id"
-        class="dados-personagem"
+          v-for="personagem in personagens"
+          :key="personagem.id"
+          class="dados-personagem"
       >
         <span class="identificador-personagem">{{personagem.nome}}</span>
-        <div class="barra">
+        <div
+            class="barra"
+            :class="{
+              atencao: personagem.vida < 50,
+              problema: personagem.vida < 20,
+              critico: personagem.vida < 10
+            }">
           <div
-            class="barra-de-vida"
-            :class="{ problema: personagem.vida < 20 }"
-            :style="{ width: personagem.vida + '%' }"></div>
+              class="barra-de-vida"
+              :class="{
+                atencao: personagem.vida < 50,
+                problema: personagem.vida < 20,
+                critico: personagem.vida < 10
+              }"
+              :style="{ width: personagem.vida > 0 ? personagem.vida + '%' : 0 }"></div>
         </div>
-        <span class="percentual-de-vida"></span>
+        <span v-if="!gameOver" class="percentual-de-vida">
+            {{ personagem.vida }}%
+          </span>
+        <strong v-else>
+          {{ personagem.vida > 0 ? "VENCEU" : "PERDEU" }}
+        </strong>
       </div>
     </div>
-    <div class="cartao acoes">
-      <button class="bottao ataque">ataque</button>
-      <button class="bottao ataque-especial">ataque especial</button>
-      <button class="bottao curar">curar</button>
-      <button class="bottao desistir">desistir</button>
+    <div class="cartao acoes" v-if="!gameOver">
+      <button class="botao botao__ataque" @click="ataque">ataque</button>
+      <button class="botao botao__ataque-especial" @click="ataqueEspecial">ataque especial</button>
+      <button class="botao botao__curar" @click="curar">curar</button>
+      <button class="botao botao__desistir" @click="desistirJogo">desistir</button>
     </div>
-    <ul class="cartao log-jogo">
-      <li v-for="log in logs" >
-        {{ log }}
+    <h2 class="cartao subtitulo" v-else>Game Over</h2>
+    <ul v-if="logs.length" class="cartao log-jogo">
+      <li v-for="(log, indice) in logs" :key="indice" class="log-jogo__item" :class="log.id">
+        {{ log.mensagem }}
       </li>
     </ul>
   </div>
+</div>
+<script src="app.js"></script>
 </body>
 </html>
