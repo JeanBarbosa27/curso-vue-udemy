@@ -1,25 +1,25 @@
 <template>
 	<v-app>
-		<main-menu />
-		<toolbar />
+		<app-menu />
+		<app-toolbar />
 		<v-content>
-			<carousel />
+			<app-carousel />
 		</v-content>
-		<main-footer />
+		<app-footer />
 	</v-app>
 </template>
 
 <script>
-	import menu from "@/components/template/Menu";
-	import toolbar from "@/components/template/ToolBar";
-	import carousel from "@/components/widgets/Carousel";
-	import footer from "@/components/template/Footer";
+	import Menu from "@/components/template/Menu";
+	import Toolbar from "@/components/template/ToolBar";
+	import Carousel from "@/components/widgets/Carousel";
+	import Footer from "@/components/template/Footer";
 export default {
 	components: {
-		"main-menu": menu,
-		toolbar,
-		carousel,
-		"main-footer": footer
+		appMenu: Menu,
+		appToolbar: Toolbar,
+		appCarousel: Carousel,
+		appFooter: Footer
 	}
 }
 </script>
