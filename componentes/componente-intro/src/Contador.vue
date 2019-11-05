@@ -32,7 +32,9 @@
     align-items: center;
   }
   .contador__valor {
+    width: 50px;
     margin-right: 20px;
+    text-align: center;
     border-bottom: 2px solid #ccc;
     font-size: 30px;
   }

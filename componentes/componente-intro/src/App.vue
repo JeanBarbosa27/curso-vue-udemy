@@ -1,12 +1,10 @@
 <template>
   <div id="app">
-    <h1>Contadores:</h1>
-    <contador></contador>
+    <app-contadores></app-contadores>
   </div>
 </template>
 
 <script>
-
 export default {
   name: 'app'
 }
