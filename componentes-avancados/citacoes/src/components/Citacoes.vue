@@ -4,7 +4,11 @@
             <button @click="numero--">&lt;</button>
             <button @click="numero++">&gt;</button>
         </span>
-        {{ numero }} {{ indice }}
+        <p>{{ numero }} {{ indice }}</p>
+        <p>{{ citacoes[indice].texto }}</p>
+        <p>{{ citacoes[indice].autor }}</p>
+        <p><small>{{ citacoes[indice].fonte }}</small></p>
+
     </div>
 </template>
 
