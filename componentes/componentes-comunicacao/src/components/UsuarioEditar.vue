@@ -7,6 +7,10 @@
             <label for="idadeUsuario" style="display: block">Alterar idade:</label>
             <input id="idadeUsuario" type="number" @input="alteraIdade">
         </p>
+        <p>
+            <label for="sobrenomeUsuario" style="display: block">Alterar sobrenome:</label>
+            <input id="sobrenomeUsuario" type="text" @input="alteraSobrenome">
+        </p>
     </div>
 </template>
 
@@ -21,6 +25,9 @@ export default {
         alteraIdade(event) {
             const idade = parseInt(event.target.value);
             return this.$emit("idadeAlterada", idade)
+        },
+        alteraSobrenome(event) {
+            this.$barramento.$emit('alteraSobrenome', event.target.value)
         }
     }
 }

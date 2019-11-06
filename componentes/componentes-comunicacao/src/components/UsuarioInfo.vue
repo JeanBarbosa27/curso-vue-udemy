@@ -3,6 +3,7 @@
         <h2>As Informações de Usuário</h2>
         <p>Vários detalhes...</p>
         <p>Nome do usuário: <strong>{{ inverterNome() }}</strong></p>
+        <p>Sobrenome do usuário: <strong>{{ sobrenome }}</strong></p>
         <p>Idade do usuário: <strong>{{ idade }}</strong></p>
         <button @click="reinicializarNome">Reinicializar Nome</button>
         <button @click="reiniciarFn">Função reiniciar nome</button>
@@ -11,6 +12,11 @@
 
 <script>
 export default {
+    data() {
+      return {
+          sobrenome: ""
+      }
+    },
     props:  {
         nome: {
             type: String,
@@ -26,6 +32,9 @@ export default {
             type: Function,
             required: true
         }
+    },
+    created() {
+        this.$barramento.$on("alteraSobrenome", sobrenome => this.sobrenome = sobrenome)
     },
     methods: {
         inverterNome() {
