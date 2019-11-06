@@ -4,6 +4,7 @@
         <p>Esse é um componente muito legal!</p>
         <p>Nome é: <strong>{{ nome }}</strong></p>
         <p>Idade é: <strong>{{ idade }}</strong></p>
+        <p>{{ $barramento.mensagem }}</p>
         <button @click="alterarNome">Alterar Nome</button>
         <hr>
         <div class="componentes">
