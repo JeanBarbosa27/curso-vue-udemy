@@ -15,6 +15,9 @@ export default {
         return {
             usuario: null
         }
+    },
+    created() {
+        this.$barramento.alertaUsuarioSelecionado(usuario => this.usuario = usuario)
     }
 }
 </script>

@@ -8,7 +8,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="usuario in usuarios" :key="usuario.id">
+                <tr v-for="usuario in usuarios" :key="usuario.id" @click="$barramento.selecionaUsuario(usuario)" :class="{ selecionado: usuario.id === $barramento.usuarioSelecionado }">
                     <td>{{ usuario.id }}</td>
                     <td>{{ usuario.nome }}</td>
                 </tr>
@@ -40,9 +40,11 @@ export default {
     th, td {
         padding: 15px;
         border-bottom: 1px solid #CCC;
+        cursor: pointer;
     }
 
-    tbody tr:hover {
+    tbody tr:hover,
+    .selecionado {
         background: rgba(0, 0, 0, 0.1);
     }
 </style>
