@@ -6,11 +6,15 @@ export default new Vue({
     }
   },
   methods: {
-    teste() {
-      this.$on("alteraSobrenome", sobrenome => this.mensagem = 'Sobrenome alterado para: ' + sobrenome)
+    alteraSobrenome(sobrenome) {
+        this.$emit('alteraSobrenome', sobrenome)
+        this.mensagem = 'Sobrenome alterado para: ' + sobrenome
+    },
+    alerta(callback) {
+      this.$on("alteraSobrenome", callback)
     }
   },
   created() {
-    this.teste()
+    this.alerta()
   }
 })

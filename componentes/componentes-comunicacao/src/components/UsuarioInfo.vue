@@ -34,7 +34,7 @@ export default {
         }
     },
     created() {
-        this.$barramento.$on("alteraSobrenome", sobrenome => this.sobrenome = sobrenome)
+        this.$barramento.alerta(sobrenome => this.sobrenome = sobrenome)
     },
     methods: {
         inverterNome() {
