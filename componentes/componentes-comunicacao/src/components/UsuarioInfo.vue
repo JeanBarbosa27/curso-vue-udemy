@@ -3,7 +3,9 @@
         <h2>As Informações de Usuário</h2>
         <p>Vários detalhes...</p>
         <p>Nome do usuário: <strong>{{ inverterNome() }}</strong></p>
+        <p>Idade do usuário: <strong>{{ idade }}</strong></p>
         <button @click="reinicializarNome">Reinicializar Nome</button>
+        <button @click="reiniciarFn">Função reiniciar nome</button>
     </div>
 </template>
 
@@ -15,6 +17,14 @@ export default {
             //required: true,
             //default: function() { return Array(10).fill(0).join(",") },
             default: "Anônimo"
+        },
+        idade: {
+            type: Number,
+            default: 18
+        },
+        reiniciarFn: {
+            type: Function,
+            required: true
         }
     },
     methods: {
