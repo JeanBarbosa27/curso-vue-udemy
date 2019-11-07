@@ -1,6 +1,8 @@
 <template>
   <div id="app">
-    <component :is="componente" />
+    <keep-alive>
+      <component :is="componente" />
+    </keep-alive>
     <div class="grupo__botoes">
       <button @click="componente='Citacoes'">Citações</button>
       <button @click="componente='Sobre'">Versão</button>
