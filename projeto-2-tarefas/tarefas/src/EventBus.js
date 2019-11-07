@@ -12,6 +12,14 @@ export default new Vue({
     getTask(taskId) {
       return this.tasks.filter(task => task.id === taskId);
     },
+    getLocalTasks() {
+      if (localStorage.todoVueUdemy) {
+        return JSON.parse(localStorage.todoVueUdemy);
+      }
+    },
+    saveLocalTasks() {
+      localStorage.setItem("todoVueUdemy", JSON.stringify(this.tasks));
+    },
     addTask(task) {
       this.tasks.push(task);
       this.$emit("taskAdded", task);
