@@ -12,8 +12,7 @@ export default {};
 
 <style scoped>
 .citacao {
-  max-width: 450px;
-  margin-bottom: 15px;
+  max-width: 80%;
   padding: 25px;
   background-color: rgba(0, 0, 0, 0.1);
   border: 1px solid #ddd;
