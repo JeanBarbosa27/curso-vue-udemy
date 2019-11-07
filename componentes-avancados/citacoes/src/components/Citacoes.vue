@@ -6,9 +6,10 @@
     </span>
     <p>{{ numero }} {{ indice }}</p>
     <citacao>
-      <h6 slot="fonte">{{ citacoes[indice].fonte }}</h6>
-      <p slot="texto">{{ citacoes[indice].texto }}</p>
+      <span slot="autor">Autor:</span>
       <h1 slot="autor">{{ citacoes[indice].autor }}</h1>
+      <p>{{ citacoes[indice].texto }}</p>
+      <h6 slot="fonte">{{ citacoes[indice].fonte }}</h6>
     </citacao>
   </div>
 </template>
