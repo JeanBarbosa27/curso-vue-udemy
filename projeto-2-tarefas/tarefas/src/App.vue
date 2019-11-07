@@ -2,6 +2,8 @@
   <div id="app">
     <h1>Tarefas</h1>
     <progress-bar />
+    <input-form />
+    <tasks-list />
   </div>
 </template>
 
