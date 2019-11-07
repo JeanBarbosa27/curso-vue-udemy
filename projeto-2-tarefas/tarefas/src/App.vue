@@ -9,14 +9,14 @@
 
 <script>
 import progressBar from "@/components/ProgressBar";
-import inputFrom from "@/components/InputForm";
-import taskList from "@/components/TasksList";
+import inputForm from "@/components/InputForm";
+import tasksList from "@/components/TasksList";
 
 export default {
   components: {
     progressBar,
-    inputFrom,
-    taskList
+    inputForm,
+    tasksList
   }
 };
 </script>
