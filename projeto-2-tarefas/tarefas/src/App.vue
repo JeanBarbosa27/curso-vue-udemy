@@ -17,6 +17,15 @@ export default {
     progressBar,
     inputForm,
     tasksList
+  },
+  created() {
+    const { getTasks, setTasks, getLocalTasks } = this.$eventBus;
+    const stateTasks = getTasks();
+    const localTasks = getLocalTasks();
+
+    if(!stateTasks.length && localTasks.length) {
+      setTasks(localTasks);
+    }
   }
 };
 </script>
