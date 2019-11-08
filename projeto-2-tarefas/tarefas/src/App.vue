@@ -19,11 +19,10 @@ export default {
     tasksList
   },
   created() {
-    const { getTasks, setTasks, getLocalTasks } = this.$eventBus;
-    const stateTasks = getTasks();
+    const { setTasks, getLocalTasks } = this.$eventBus;
     const localTasks = getLocalTasks();
 
-    if(!stateTasks.length && localTasks.length) {
+    if(localTasks.length) {
       setTasks(localTasks);
     }
   }
@@ -31,6 +30,9 @@ export default {
 </script>
 
 <style>
+  * {
+    box-sizing: border-box;
+  }
 body {
   font-family: "Lato", sans-serif;
   background: linear-gradient(to right, rgb(22, 34, 42), rgb(58, 96, 115));
