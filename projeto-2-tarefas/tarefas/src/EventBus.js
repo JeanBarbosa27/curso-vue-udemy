@@ -2,7 +2,17 @@ import Vue from "vue";
 export default new Vue({
   data() {
     return {
-      tasks: []
+      tasks: [
+        {
+          text: "bla bla",
+          status: "done"
+        },
+        {
+          text: "ble ble",
+          status: "pending"
+        },
+
+      ]
     };
   },
   methods: {
@@ -11,6 +21,9 @@ export default new Vue({
     },
     getTask(taskId) {
       return this.tasks.filter(task => task.id === taskId);
+    },
+    setTasks(tasks) {
+      return this.tasks = tasks;
     },
     getLocalTasks() {
       if (localStorage.todoVueUdemy) {
@@ -25,14 +38,20 @@ export default new Vue({
       this.$emit("taskAdded", task);
     },
     onTaskAdded(callback) {
-      this.$on("taskAdded", callback);
+      this.$on("taskAdded", () => {
+        this.saveLocalTasks();
+        callback();
+      });
     },
     removeTask(taskId) {
       this.tasks = this.tasks.filter(task => task.id !== taskId);
       this.$emit("taskRemoved");
     },
     onTaskRemoved(callback) {
-      this.$on("taskRemoved", callback);
+      this.$on("taskRemoved", () => {
+        this.saveLocalTasks();
+        callback();
+      });
     }
   }
 });
