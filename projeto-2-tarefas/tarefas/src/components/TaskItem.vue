@@ -54,6 +54,7 @@
     border-radius: 10px;
     line-height: 20px;
     transition: all 300ms ease-in-out;
+    user-select: none;
     cursor: pointer;
   }
   .task-item.done {
