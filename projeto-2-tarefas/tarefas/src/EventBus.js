@@ -11,7 +11,6 @@ export default new Vue({
           text: "ble ble",
           status: "pending"
         },
-
       ]
     };
   },
@@ -20,7 +19,7 @@ export default new Vue({
       return this.tasks;
     },
     getTask(taskId) {
-      return this.tasks.filter(task => task.id === taskId);
+      return this.tasks.filter(task => task.text === taskId);
     },
     setTasks(tasks) {
       return this.tasks = tasks;
@@ -38,20 +37,14 @@ export default new Vue({
       this.$emit("taskAdded", task);
     },
     onTaskAdded(callback) {
-      this.$on("taskAdded", () => {
-        this.saveLocalTasks();
-        callback();
-      });
+      this.$on("taskAdded", callback);
     },
     removeTask(taskId) {
       this.tasks = this.tasks.filter(task => task.id !== taskId);
       this.$emit("taskRemoved");
     },
     onTaskRemoved(callback) {
-      this.$on("taskRemoved", () => {
-        this.saveLocalTasks();
-        callback();
-      });
+      this.$on("taskRemoved", callback);
     }
   }
 });
