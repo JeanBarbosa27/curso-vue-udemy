@@ -21,12 +21,15 @@ export default {
       if(totalTasks) {
         const doneTasks =  stateTasks.filter(task => task.status === "done");
         this.progressPercentage = parseInt(doneTasks.length / totalTasks * 100);
+      } else {
+        this.progressPercentage = 0
       }
     }
   },
   created() {
     this.calculateProgress();
     this.$eventBus.onTaskAdded(() => this.calculateProgress());
+    this.$eventBus.onStatusChanged(() => this.calculateProgress());
     this.$eventBus.onTaskRemoved(() => this.calculateProgress());
   }
 };
