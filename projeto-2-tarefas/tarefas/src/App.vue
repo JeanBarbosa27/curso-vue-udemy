@@ -3,6 +3,12 @@
     <h1>Tarefas</h1>
     <progress-bar />
     <input-form />
+    <p
+      class="app__empty-feedback"
+      v-if="!this.$eventBus.tasks.length"
+    >
+      Sua vida está em dia :)
+    </p>
     <tasks-list />
   </div>
 </template>
@@ -53,4 +59,9 @@ body {
   font-weight: 300;
   font-size: 3rem;
 }
+  .app__empty-feedback {
+    font-size: 18px;
+    font-weight: 700;
+    text-align: center;
+  }
 </style>
