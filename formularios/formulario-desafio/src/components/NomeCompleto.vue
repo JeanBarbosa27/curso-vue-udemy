@@ -27,7 +27,7 @@
     },
     data() {
       return {
-        nomeCompleto: {
+        usuario: {
           nome: "",
           sobrenome: ""
         }
@@ -45,8 +45,8 @@
     },
     methods: {
       enviarNomeCompleto(event, type) {
-        this.nomeCompleto[type] = event.target.value;
-        return this.$emit('input', this.nomeCompleto);
+        this.usuario[type] = event.target.value;
+        return this.$emit('input', this.usuario);
       }
     }
 

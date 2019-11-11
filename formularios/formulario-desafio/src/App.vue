@@ -5,49 +5,41 @@
 			<form class="painel" v-if="!enviado">
 				<div class="cabecalho">Formulário</div>
 				<NomeCompleto
-					:nome="nomeCompleto.nome"
-					:sobrenome="nomeCompleto.sobrenome"
-					v-model="nomeCompleto"
+					:nome="usuario.nome"
+					:sobrenome="usuario.sobrenome"
+					v-model="usuario"
 				/>
+				<Rotulo nome="e-mail">
+					<input type="email" v-model="email">
+				</Rotulo>
 				<Rotulo nome="senha">
 					<input type="password" v-model="senha" />
 				</Rotulo>
 				<Rotulo nome="Armazenar dados">
 					<Label>
-						<input type="radio" value="sim" v-model="armazenar" />
+						<input type="radio" :value="true" v-model="armazenar" />
 						<span>Sim</span>
 					</Label>
 					<Label>
-						<input type="radio" value="não" v-model="armazenar" />
+						<input type="radio" :value="false" v-model="armazenar" />
 						<span>Não</span>
 					</Label>
 				</Rotulo>
 				<button @click.prevent="enviado = true">Enviar</button>
-				<!-- Exercicio 01 -->
-				<!-- Criar uma formulário de registro -->
-				<!-- Nome completo (Nome e Sobrenome) -->
-				<!-- Email -->
-				<!-- Senha -->
-				<!-- Armazenar Dados? (Sim/Não) -->
-
-				<!-- Exercicio 02 -->
-				<!-- Só mostrar o fomulário de não tiver sido submetido -->
-				<!-- Mostrar a área de Resultado apenas quando o formulário for submetido -->
-				
-				<!-- Exercicio 03 -->
-				<!-- Crie um componente personalizado NomeCompleto -->
-				<!-- Esse componente deve receber Nome e Sobrenome -->
 			</form>
 			<div class="painel" v-else>
 				<div class="cabecalho">Resultado</div>
 					<Rotulo nome="Nome completo">
-						<span>{{ nomeCompleto.nome }} {{ nomeCompleto.sobrenome }}</span>
+						<span>{{ usuario.nome }} {{ usuario.sobrenome }}</span>
 					</Rotulo>
+				<Rotulo nome="e-mail">
+					<span>{{ email }}</span>
+				</Rotulo>
 				<Rotulo nome="senha">
 					<span>{{ senha }}</span>
 				</Rotulo>
 				<Rotulo nome="Armazenar Dados">
-					<span>{{ armazenar }}</span>
+					<span>{{ armazenar ? "Sim" : "Não" }}</span>
 				</Rotulo>
 			</div>
 		</div>
@@ -63,10 +55,11 @@ export default {
 	components: {NomeCompleto, Rotulo },
 	data() {
 		return {
-			nomeCompleto: {
+			usuario: {
 				nome: "",
 				sobrenome: ""
 			},
+			email: "",
 			senha: "",
 			armazenar: false,
 			enviado: false
