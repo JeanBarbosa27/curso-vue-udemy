@@ -23,9 +23,7 @@ export default {
 				if(typeof value !== "function") {
 					return console.error("Diretiva quando deve receber uma função")
 				} else {
-					el.addEventListener(arg, () => {
-						value()
-					})
+					el.addEventListener(arg, value)
 				}
 			}
 		}
