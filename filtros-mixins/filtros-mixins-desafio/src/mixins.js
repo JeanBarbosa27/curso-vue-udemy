@@ -1,30 +1,13 @@
-export const separadorPalavrasGlobal = {
-  data() {
-    return {
-      separarTextoGlobal: "Lorem ipsum dolor sit amet consectetur"
-    }
-  },
+export default {
   computed: {
     separadorGlobal() {
-      return this.separarTextoGlobal.trim().replace(/\s/g, ", ")
-    }
-  }
-}
-
-export const contadorLetrasGlobal = {
-  data() {
-    return {
-      contarTextoGlobal: " Pedro é legal"
-    }
-  },
-  computed: {
+      return this.frase.trim().replace(/\s/g, ", ")
+    },
     contadorGlobal() {
-      const palavas = this.contarTextoGlobal.trim().split(/\s/)
+      const palavas = this.frase.trim().split(/\s/)
       return palavas.map(palavra => {
         return `${palavra} (${palavra.length}) `
       }).join("");
     }
   }
 }
-
-export default [separadorPalavrasGlobal, contadorLetrasGlobal]

@@ -4,12 +4,12 @@
 		<hr>
 		<h2>Exercício 1:</h2>
 		<h3>Construir um filtro local que troca espaços por vírgula</h3>
-		<p>{{ separarTextoGlobal | separadorPalavras }}</p>
+		<p>{{ frase | separadorPalavras }}</p>
 		<hr>
 		<h2>Exercício 2:</h2>
 		<h3>Filtro global que conta o tamanho de cada palavra e adiciona o
 			valor na string final</h3>
-		<p>{{ contarTextoGlobal | contadorLetras }}</p>
+		<p>{{ frase | contadorLetras }}</p>
 		<hr>
 		<h2>Exercício 3:</h2>
 		<h3>Implementar os exercicios 1 e 2 com propriedade computada</h3>
@@ -20,19 +20,23 @@
 		<h3>Compartilhe a propriedade computada via mixin</h3>
 		<p>{{ separadorGlobal }}</p>
 		<p>{{ contadorGlobal }}</p>
-
 	</div>
 </template>
 
 <script>
 	import mixins from "./mixins";
 export default {
+	data() {
+    return {
+      frase: "Lorem ipsum dolor sit amet consectetur"
+    }
+  },
 	computed: {
 		separador() {
-      return this.separarTextoGlobal.trim().replace(/\s/g, ", ")
+      return this.frase.trim().replace(/\s/g, ", ")
     },
 		contador() {
-      const palavas = this.contarTextoGlobal.trim().split(/\s/)
+      const palavas = this.frase.trim().split(/\s/)
       return palavas.map(palavra => {
         return `${palavra} (${palavra.length}) `
       }).join("");
@@ -43,7 +47,7 @@ export default {
 			return frase.trim().replace(/\s/g, ", ")
 		}
 	},
-	mixins: mixins
+	mixins: [mixins]
 }
 </script>
 
