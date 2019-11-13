@@ -1,17 +1,18 @@
 <template>
-  <div id="app" class="container-fluid">
-    <h1>Animações</h1>
-    <hr>
-    <transition name="fade" appear>
+  <transition name="fade" appear>
+    <div id="app" class="container-fluid">
+      <h1>Animações</h1>
+      <hr>
       <b-button variant="primary" @click="exibir = !exibir" class="mb-4">Mostrar mensagem</b-button>
-    </transition>
-    <transition name="fade">
-      <b-alert variant="success" show v-if="exibir">Mensagem exibida via animação</b-alert>
-    </transition>
-    <transition name="slide">
-      <b-alert variant="success" show v-if="exibir" type="transition">Mensagem exibida via animação</b-alert>
-    </transition>
-  </div>
+      <transition name="fade">
+        <b-alert variant="success" show v-if="exibir">Mensagem exibida via animação</b-alert>
+      </transition>
+      <transition name="slide">
+        <b-alert variant="success" show v-if="exibir" type="transition">Mensagem exibida via animação</b-alert>
+      </transition>
+    </div>
+  </transition>
+
 </template>
 
 <script>
