@@ -7,7 +7,7 @@
 			<b-alert variant="success" show v-if="exibir">Mensagem exibida via animação</b-alert>
 		</transition>
 		<transition name="slide">
-			<b-alert variant="success" show v-if="exibir">Mensagem exibida via animação</b-alert>
+			<b-alert variant="success" show v-if="exibir" type="transition">Mensagem exibida via animação</b-alert>
 		</transition>
 
 	</div>
@@ -60,9 +60,15 @@ export default {
 	}
 	.slide-enter-active {
 		animation: slide-in 1s ease;
+		transition: opacity 2s;
 	}
 	.slide-leave-active {
 		animation: slide-out 1s ease;
+		transition: opacity 0.5s;
+	}
+
+	.slide-enter, .slide-leave-to {
+		opacity: 0;
 	}
 
 </style>
