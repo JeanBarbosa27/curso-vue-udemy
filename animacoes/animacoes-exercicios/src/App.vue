@@ -5,10 +5,13 @@
       <hr>
       <b-button variant="primary" @click="exibir = !exibir" class="mb-4">Mostrar mensagem</b-button>
       <transition name="fade">
-        <b-alert variant="success" show v-if="exibir">Mensagem exibida via animação</b-alert>
+        <b-alert variant="success" show v-if="exibir">Mensagem exibida via animação (Fade)</b-alert>
       </transition>
       <transition name="slide">
-        <b-alert variant="success" show v-if="exibir" type="transition">Mensagem exibida via animação</b-alert>
+        <b-alert variant="success" show v-if="exibir" type="transition">Mensagem exibida via animação (Fade e Slide)</b-alert>
+      </transition>
+			<transition enter-active-class="animated bounce" leave-active-class="animated shake">
+        <b-alert variant="success" show v-if="exibir" type="transition">Mensagem exibida via animação (Bounce e Shake)</b-alert>
       </transition>
     </div>
   </transition>
