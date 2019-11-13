@@ -13,6 +13,14 @@
 			<transition enter-active-class="animated bounce" leave-active-class="animated shake">
         <b-alert variant="success" show v-if="exibir" type="transition">Mensagem exibida via animação (Bounce e Shake)</b-alert>
       </transition>
+			<hr>
+			<b-select v-model="tipoAnimacao">
+				<option value="fade">Fade</option>
+				<option value="slide">Slide</option>
+			</b-select>
+			<transition :name="tipoAnimacao" >
+        <b-alert variant="warning" show v-if="exibir">Mensagem exibida via animação (Selecionado)</b-alert>
+      </transition>
     </div>
   </transition>
 
@@ -24,6 +32,7 @@
     data() {
       return {
         exibir: false,
+				tipoAnimacao: "fade"
       }
     }
   }
