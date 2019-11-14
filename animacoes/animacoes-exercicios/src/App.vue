@@ -57,12 +57,23 @@
       >
         <div class="caixa" v-if="exibir2"></div>
       </transition>
+      <hr>
+      <div class="mb-4">
+        <b-button class="mr-2" variant="primary" @click="componenteSelecionado = 'AlertaInfo'">Info</b-button>
+        <b-button variant="warning" @click="componenteSelecionado = 'AlertaAdvertencia'">Advertência</b-button>
+      </div>
+      <transition name="slide" mode="out-in">
+        <component :is="componenteSelecionado"></component>
+      </transition>
+
     </div>
   </transition>
 
 </template>
 
 <script>
+  import AlertaInfo from "./AlertaInfo"
+  import AlertaAdvertencia from "./AlertaAdvertencia"
 
   export default {
     data() {
@@ -70,8 +81,13 @@
         exibir: false,
         exibir2: true,
         tipoAnimacao: "fade",
-        larguraBase: 0
+        larguraBase: 0,
+        componenteSelecionado: "AlertaInfo"
       }
+    },
+    components: {
+      AlertaInfo,
+      AlertaAdvertencia
     },
     methods: {
       animacao(el, done, modo) {
@@ -130,6 +146,7 @@
     color: #2c3e50;
     margin-top: 60px;
     font-size: 1.5rem;
+    overflow-x: hidden;
   }
 
   .caixa {
