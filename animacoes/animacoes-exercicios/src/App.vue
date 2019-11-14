@@ -3,41 +3,62 @@
     <div id="app" class="container-fluid">
       <h1>Animações</h1>
       <hr>
+      <!--			Animações usando só o CSS-->
       <b-button variant="primary" @click="exibir = !exibir" class="mb-4">Mostrar mensagem</b-button>
-<!--      <transition name="fade">-->
-<!--        <b-alert variant="success" show v-if="exibir">Mensagem exibida via animação (Fade)</b-alert>-->
-<!--      </transition>-->
-<!--      <transition name="slide">-->
-<!--        <b-alert-->
-<!--					variant="success"-->
-<!--					show v-if="exibir"-->
-<!--					type="transition"-->
-<!--				>-->
-<!--					Mensagem exibida via animação (Fade e Slide)-->
-<!--				</b-alert>-->
-<!--      </transition>-->
-<!--			<transition enter-active-class="animated bounce" leave-active-class="animated shake">-->
-<!--        <b-alert-->
-<!--					variant="success"-->
-<!--					show v-if="exibir"-->
-<!--					type="transition"-->
-<!--				>-->
-<!--					Mensagem exibida via animação (Bounce e Shake)-->
-<!--				</b-alert>-->
-<!--      </transition>-->
-<!--			<hr>-->
-			<b-select v-model="tipoAnimacao">
-				<option value="fade">Fade</option>
-				<option value="slide">Slide</option>
-			</b-select>
-<!--			<transition :name="tipoAnimacao" >-->
-<!--        <b-alert variant="warning" show v-if="exibir">Mensagem exibida via animação (Selecionado)</b-alert>-->
-<!--      </transition>-->
-			<transition :name="tipoAnimacao" mode="out-in">
-        <b-alert variant="info" key="info" show v-if="exibir">Mensagem exibida via animação (Múltiplos elementos)</b-alert>
+      <transition name="fade">
+        <b-alert variant="success" show v-if="exibir">Mensagem exibida via animação (Fade)</b-alert>
+      </transition>
+      <transition name="slide">
+        <b-alert
+            variant="success"
+            show v-if="exibir"
+            type="transition"
+        >
+          Mensagem exibida via animação (Fade e Slide)
+        </b-alert>
+      </transition>
+      <transition enter-active-class="animated bounce" leave-active-class="animated shake">
+        <b-alert
+            variant="success"
+            show v-if="exibir"
+            type="transition"
+        >
+          Mensagem exibida via animação (Bounce e Shake)
+        </b-alert>
+      </transition>
+      <hr>
+      <b-select v-model="tipoAnimacao">
+        <option value="fade">Fade</option>
+        <option value="slide">Slide</option>
+      </b-select>
+      <transition :name="tipoAnimacao">
+        <b-alert variant="warning" show v-if="exibir">Mensagem exibida via animação (Selecionado)</b-alert>
+      </transition>
+      <transition :name="tipoAnimacao" mode="out-in">
+        <b-alert variant="info" key="info" show v-if="exibir">Mensagem exibida via animação (Múltiplos elementos)
+        </b-alert>
         <b-alert variant="warning" key="warn" show v-else>Mensagem exibida via animação (Múltiplos elementos)</b-alert>
       </transition>
 
+      <hr>
+      <!--			Animações usando o JS-->
+      <b-button variant="success" class="mb-4" @click="exibir2 = !exibir2">Mostrar</b-button>
+      <transition
+          :css="false"
+          @before-enter="beforeEnter"
+          @enter="enter"
+          @after-enter="afterEnter"
+          @enter-cancelled="enterCancelled"
+
+          @before-leave="beforeLeave"
+          @leave="leave"
+          @after-leave="afterLeave"
+          @leave-cancelled="leaveCancelled"
+      >
+        <div class="caixa" v-if="exibir2">
+
+        </div>
+      </transition>
     </div>
   </transition>
 
@@ -49,7 +70,36 @@
     data() {
       return {
         exibir: false,
-				tipoAnimacao: "fade"
+        exibir2: true,
+        tipoAnimacao: "fade"
+      }
+    },
+    methods: {
+      beforeEnter(el) {
+        console.log("beforeEnter el: ", el)
+      },
+      enter(el, done) {
+        console.log("enter el: ", el)
+        done()
+      },
+      afterEnter(el) {
+        console.log("afterEnter el: ", el)
+      },
+      enterCancelled(el) {
+        console.log("enterCancelled el: ", el)
+      },
+      beforeLeave(el) {
+        console.log("beforeLeave el: ", el)
+      },
+      leave(el, done) {
+        console.log("leave el: ", el)
+        done()
+      },
+      afterLeave(el) {
+        console.log("afterLeave el: ", el)
+      },
+      leaveCancelled(el) {
+        console.log("leaveCancelled el: ", el)
       }
     }
   }
@@ -64,6 +114,13 @@
     color: #2c3e50;
     margin-top: 60px;
     font-size: 1.5rem;
+  }
+
+  .caixa {
+    width: 300px;
+    height: 100px;
+    margin: 30px auto;
+    background-color: lightgreen;
   }
 
   .fade-enter, .fade-leave-to {
