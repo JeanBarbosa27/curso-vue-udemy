@@ -1,137 +1,50 @@
 <template>
-  <transition name="fade" appear>
-    <div id="app" class="container-fluid">
-      <h1>Animações</h1>
-      <hr>
-      <!--			Animações usando só o CSS-->
-      <b-button variant="primary" @click="exibir = !exibir" class="mb-4">Mostrar mensagem</b-button>
-      <transition name="fade">
-        <b-alert variant="success" show v-if="exibir">Mensagem exibida via animação (Fade)</b-alert>
-      </transition>
-      <transition name="slide">
-        <b-alert
-            variant="success"
-            show v-if="exibir"
-            type="transition"
-        >
-          Mensagem exibida via animação (Fade e Slide)
-        </b-alert>
-      </transition>
-      <transition enter-active-class="animated bounce" leave-active-class="animated shake">
-        <b-alert
-            variant="success"
-            show v-if="exibir"
-            type="transition"
-        >
-          Mensagem exibida via animação (Bounce e Shake)
-        </b-alert>
-      </transition>
-      <hr>
-      <b-select v-model="tipoAnimacao">
-        <option value="fade">Fade</option>
-        <option value="slide">Slide</option>
+  <div id="app" class="container-fluid">
+    <h1>Animações</h1>
+    <hr>
+    <div class="row d-flex align-items-center mb-5">
+      <h2 class="col-7">Selecione o componente:</h2>
+      <b-select class="col-4" v-model="componenteSelecionado">
+        <optgroup label="Feito com CSS">
+          <option value="Animacao">Animação</option>
+          <option value="AnimacaoDinamica">Animação Dinâmica</option>
+          <option value="ComponenteDinamico">Componente Dinâmico</option>
+          <option value="GrupoTransicao">Grupo com Transição</option>
+          <option value="MultiplosElementos">Multiplos Elementos</option>
+          <option value="Transicao">Transição</option>
+        </optgroup>
+        <optgroup label="Feito com JS">
+          <option value="AlternarTamanho">Alternar Tamanho</option>
+        </optgroup>
       </b-select>
-      <transition :name="tipoAnimacao">
-        <b-alert variant="warning" show v-if="exibir">Mensagem exibida via animação (Selecionado)</b-alert>
-      </transition>
-      <transition :name="tipoAnimacao" mode="out-in">
-        <b-alert variant="info" key="info" show v-if="exibir">Mensagem exibida via animação (Múltiplos elementos)
-        </b-alert>
-        <b-alert variant="warning" key="warn" show v-else>Mensagem exibida via animação (Múltiplos elementos)</b-alert>
-      </transition>
-
-      <hr>
-      <!--			Animações usando o JS-->
-      <b-button variant="success" class="mb-4" @click="exibir2 = !exibir2">Alternar</b-button>
-      <transition
-          :css="false"
-          @before-enter="beforeEnter"
-          @enter="enter"
-          @after-enter="afterEnter"
-          @enter-cancelled="enterCancelled"
-
-          @before-leave="beforeLeave"
-          @leave="leave"
-          @after-leave="afterLeave"
-          @leave-cancelled="leaveCancelled"
-      >
-        <div class="caixa" v-if="exibir2"></div>
-      </transition>
-      <hr>
-      <div class="mb-4">
-        <b-button class="mr-2" variant="primary" @click="componenteSelecionado = 'AlertaInfo'">Info</b-button>
-        <b-button variant="warning" @click="componenteSelecionado = 'AlertaAdvertencia'">Advertência</b-button>
-      </div>
-      <transition name="slide" mode="out-in">
-        <component :is="componenteSelecionado"></component>
-      </transition>
-
     </div>
-  </transition>
 
+    <component :is="componenteSelecionado"></component>
+  </div>
 </template>
 
 <script>
-  import AlertaInfo from "./AlertaInfo"
-  import AlertaAdvertencia from "./AlertaAdvertencia"
+  import AlternarTamanho from "./components/animacoes-js/AlternarTamanho"
+  import Animacao from "./components/animacoes-css/Animacao"
+  import AnimacaoDinamica from "./components/animacoes-css/AnimacaoDinamica"
+  import ComponenteDinamico from "./components/animacoes-css/ComponenteDinamico"
+  import GrupoTransicao from "./components/animacoes-css/GrupoTransicao"
+  import MultiplosElementos from "./components/animacoes-css/MultiplosElementos"
+  import Transicao from "./components/animacoes-css/Transicao"
 
   export default {
+    components: {
+      AlternarTamanho,
+      Animacao,
+      AnimacaoDinamica,
+      ComponenteDinamico,
+      GrupoTransicao,
+      MultiplosElementos,
+      Transicao
+    },
     data() {
       return {
-        exibir: false,
-        exibir2: true,
-        tipoAnimacao: "fade",
-        larguraBase: 0,
-        componenteSelecionado: "AlertaInfo"
-      }
-    },
-    components: {
-      AlertaInfo,
-      AlertaAdvertencia
-    },
-    methods: {
-      animacao(el, done, modo) {
-        let rodada = 1;
-        const temporizador = setInterval(() => {
-          let largura = modo === 'aumentar'
-            ? this.larguraBase + rodada * 10
-            : modo === 'reduzir'
-              && this.larguraBase - rodada * 10
-          el.style.width = `${largura}px`;
-          rodada++;
-
-          if(rodada > 30) {
-            clearInterval(temporizador);
-            done();
-          }
-
-        }, 20)
-      },
-      beforeEnter(el) {
-        this.larguraBase = 0;
-        el.style.width = `${this.larguraBase}px`;
-      },
-      enter(el, done) {
-        this.animacao(el, done, "aumentar")
-      },
-      afterEnter(el) {
-        console.log("afterEnter el: ", el)
-      },
-      enterCancelled(el) {
-        console.log("enterCancelled el: ", el)
-      },
-      beforeLeave(el) {
-        this.larguraBase = 300;
-        el.style.width = `${this.larguraBase}px`;
-      },
-      leave(el, done) {
-        this.animacao(el, done, "reduzir")
-      },
-      afterLeave(el) {
-        console.log("afterLeave el: ", el)
-      },
-      leaveCancelled(el) {
-        console.log("leaveCancelled el: ", el)
+        componenteSelecionado: "Transicao",
       }
     }
   }
