@@ -101,6 +101,8 @@
   }
 
   .slide-leave-active {
+    position: absolute;
+    width: 100%;
     animation: slide-out 1s ease;
     transition: opacity 0.5s;
   }
@@ -108,5 +110,7 @@
   .slide-enter, .slide-leave-to {
     opacity: 0;
   }
-
+  .slide-move {
+    transition: transform 1s;
+  }
 </style>

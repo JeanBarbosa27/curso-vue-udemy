@@ -2,19 +2,23 @@
   <div class="d-flex row justify-content-center">
     <span class="col-4">Total de tokes: {{ tokens.length }}</span>
     <transition-group
-      class="col-4"
-      style="height: 372px; user-select: none; overflow-y: auto"
+      name="slide"
+      class="col-4 grupo-listas"
     >
       <b-list-group
         v-for="(token, i) in tokens"
         :key="i"
       >
-        <b-list-group-item style="cursor: pointer" @click="removerToken(i)">
+        <b-list-group-item class="item-lista" @click="removerToken(i)">
           {{ token }}
         </b-list-group-item>
       </b-list-group>
     </transition-group>
-    <b-button variant="primary" style="height: 50px" class="col-2" @click="adicionarToken">
+    <b-button
+      variant="primary"
+      class="col-2 botao-adicionar"
+      @click="adicionarToken"
+    >
       Adicionar token
     </b-button>
   </div>
@@ -41,5 +45,47 @@
 </script>
 
 <style scoped>
+  .fade-enter-active, .slide-enter-active {
+    background-color: #42b983;
+    transition: all 1s ease 0.5s;
+  }
 
+  .grupo-listas {
+    height: 372px;
+    user-select: none;
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+  .item-lista {
+    position: relative;
+    background-color: transparent;
+    cursor: pointer;
+    transition: background-color 0.5s;
+  }
+  .item-lista:before {
+    content: "Remover item";
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    padding: 5px;
+    font-size: 12px;
+    color: transparent;
+    font-weight: bold;
+    text-transform: uppercase;
+    transition: border-radius 1s, color 1s;
+  }
+  .item-lista:hover {
+    color: #ffffff;
+    background-color: firebrick;
+  }
+  .item-lista:hover:before {
+    color: firebrick;
+    background-color: #ffffff;
+    border-radius: 20px;
+  }
+  .botao-adicionar {
+    height: 50px;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
 </style>
