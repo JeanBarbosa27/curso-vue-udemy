@@ -42,7 +42,7 @@
 
       <hr>
       <!--			Animações usando o JS-->
-      <b-button variant="success" class="mb-4" @click="exibir2 = !exibir2">Mostrar</b-button>
+      <b-button variant="success" class="mb-4" @click="exibir2 = !exibir2">Alternar</b-button>
       <transition
           :css="false"
           @before-enter="beforeEnter"
@@ -55,9 +55,7 @@
           @after-leave="afterLeave"
           @leave-cancelled="leaveCancelled"
       >
-        <div class="caixa" v-if="exibir2">
-
-        </div>
+        <div class="caixa" v-if="exibir2"></div>
       </transition>
     </div>
   </transition>
@@ -71,16 +69,34 @@
       return {
         exibir: false,
         exibir2: true,
-        tipoAnimacao: "fade"
+        tipoAnimacao: "fade",
+        larguraBase: 0
       }
     },
     methods: {
+      animacao(el, done, modo) {
+        let rodada = 1;
+        const temporizador = setInterval(() => {
+          let largura = modo === 'aumentar'
+            ? this.larguraBase + rodada * 10
+            : modo === 'reduzir'
+              && this.larguraBase - rodada * 10
+          el.style.width = `${largura}px`;
+          rodada++;
+
+          if(rodada > 30) {
+            clearInterval(temporizador);
+            done();
+          }
+
+        }, 20)
+      },
       beforeEnter(el) {
-        console.log("beforeEnter el: ", el)
+        this.larguraBase = 0;
+        el.style.width = `${this.larguraBase}px`;
       },
       enter(el, done) {
-        console.log("enter el: ", el)
-        done()
+        this.animacao(el, done, "aumentar")
       },
       afterEnter(el) {
         console.log("afterEnter el: ", el)
@@ -89,11 +105,11 @@
         console.log("enterCancelled el: ", el)
       },
       beforeLeave(el) {
-        console.log("beforeLeave el: ", el)
+        this.larguraBase = 300;
+        el.style.width = `${this.larguraBase}px`;
       },
       leave(el, done) {
-        console.log("leave el: ", el)
-        done()
+        this.animacao(el, done, "reduzir")
       },
       afterLeave(el) {
         console.log("afterLeave el: ", el)
