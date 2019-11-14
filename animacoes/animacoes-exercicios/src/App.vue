@@ -4,23 +4,40 @@
       <h1>Animações</h1>
       <hr>
       <b-button variant="primary" @click="exibir = !exibir" class="mb-4">Mostrar mensagem</b-button>
-      <transition name="fade">
-        <b-alert variant="success" show v-if="exibir">Mensagem exibida via animação (Fade)</b-alert>
-      </transition>
-      <transition name="slide">
-        <b-alert variant="success" show v-if="exibir" type="transition">Mensagem exibida via animação (Fade e Slide)</b-alert>
-      </transition>
-			<transition enter-active-class="animated bounce" leave-active-class="animated shake">
-        <b-alert variant="success" show v-if="exibir" type="transition">Mensagem exibida via animação (Bounce e Shake)</b-alert>
-      </transition>
-			<hr>
+<!--      <transition name="fade">-->
+<!--        <b-alert variant="success" show v-if="exibir">Mensagem exibida via animação (Fade)</b-alert>-->
+<!--      </transition>-->
+<!--      <transition name="slide">-->
+<!--        <b-alert-->
+<!--					variant="success"-->
+<!--					show v-if="exibir"-->
+<!--					type="transition"-->
+<!--				>-->
+<!--					Mensagem exibida via animação (Fade e Slide)-->
+<!--				</b-alert>-->
+<!--      </transition>-->
+<!--			<transition enter-active-class="animated bounce" leave-active-class="animated shake">-->
+<!--        <b-alert-->
+<!--					variant="success"-->
+<!--					show v-if="exibir"-->
+<!--					type="transition"-->
+<!--				>-->
+<!--					Mensagem exibida via animação (Bounce e Shake)-->
+<!--				</b-alert>-->
+<!--      </transition>-->
+<!--			<hr>-->
 			<b-select v-model="tipoAnimacao">
 				<option value="fade">Fade</option>
 				<option value="slide">Slide</option>
 			</b-select>
-			<transition :name="tipoAnimacao" >
-        <b-alert variant="warning" show v-if="exibir">Mensagem exibida via animação (Selecionado)</b-alert>
+<!--			<transition :name="tipoAnimacao" >-->
+<!--        <b-alert variant="warning" show v-if="exibir">Mensagem exibida via animação (Selecionado)</b-alert>-->
+<!--      </transition>-->
+			<transition :name="tipoAnimacao" mode="out-in">
+        <b-alert variant="info" key="info" show v-if="exibir">Mensagem exibida via animação (Múltiplos elementos)</b-alert>
+        <b-alert variant="warning" key="warn" show v-else>Mensagem exibida via animação (Múltiplos elementos)</b-alert>
       </transition>
+
     </div>
   </transition>
 
