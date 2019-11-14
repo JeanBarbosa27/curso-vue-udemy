@@ -1,12 +1,23 @@
 <template>
     <div class="question">
-        
+        <h2 class="title">{{ question.text }}</h2>
+        <ul class="answers">
+            <li v-for="(answer, n) in question.answers" :key="answer.text" @click="$emit('answerChoosen', answer.correct)">
+                <span class="number">{{ n + 1 }}</span>
+                <span class="text">{{ answer.text }}</span>
+            </li>
+        </ul>
     </div>
 </template>
 
 <script>
 export default {
-    
+    props: {
+        question: {
+            type: Object,
+            required: true
+        }
+    }
 }
 </script>
 
@@ -23,7 +34,10 @@ export default {
         flex-direction: column;
         justify-content: space-around;
     }
-
+    .title {
+        margin-bottom: 20px;
+        line-height: 1;
+    }
     ul.answers {
         font-size: 2rem;
         padding: 0;
@@ -33,12 +47,14 @@ export default {
     }
 
     .answers li {
-        margin: 20px;
+        margin-right: 20px;
+        margin-bottom: 20px;
         background-color: #89c454;
         border-radius: 8px;
         width: 40%;
 
         display: flex;
+        cursor: pointer;
     }
 
     .answers .number {
