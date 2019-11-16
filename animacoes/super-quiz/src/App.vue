@@ -56,10 +56,14 @@ export default {
     restartQuiz() {
       this.question = 0;
       this.correctAnswers = 0;
+      this.shuffleQuestions(this.questions);
+    },
+    shuffleQuestions(arr) {
+      return arr.sort(() => Math.random() - 0.5);
     }
   },
   created() {
-    this.questions.sort(() => Math.random() - 0.5);
+    this.shuffleQuestions(this.questions);
   }
 };
 </script>
