@@ -37,10 +37,10 @@
 		</b-card>
 		<hr>
 		<b-list-group>
-			<b-list-group-item v-for="(usuario, id) in usuarios" :key="id">
+			<b-list-group-item v-for="(usuario) in usuarios" :key="usuario.id">
 				<p><strong>Nome: </strong> {{usuario.nome}}</p>
 				<p><strong>E-mail: </strong> {{usuario.email}}</p>
-				<p><strong>ID: </strong> {{id}}</p>
+				<p><strong>ID: </strong> {{usuario.id}}</p>
 			</b-list-group-item>
 		</b-list-group>
 	</div>

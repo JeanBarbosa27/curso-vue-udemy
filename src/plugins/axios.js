@@ -7,12 +7,22 @@ Vue.use({
   install(Vue) {
     Vue.prototype.$http = axios;
 
-    Vue.prototype.$http.interceptors.request.use(config => {
-      // if(config.method == "post") {
-      //   config.method = "put";
+    Vue.prototype.$http.interceptors.request.use(req => {
+      // if(req.method == "post") {
+      //   req.method = "put";
       // }
-      console.log(config.method);
-      return config;
-    })
+      console.log(req.method);
+      return req;
+    }, error => Promise.reject(error))
+
+    Vue.prototype.$http.interceptors.response.use(res => {
+      const array = [];
+      for(let chave in res.data) {
+        array.push({ id: chave, ...res.data[chave] });
+      }
+      res.data = array;
+      console.log(res);
+      return res;
+    }, error => Promise.reject(error))
   }
 });
