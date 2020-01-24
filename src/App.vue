@@ -41,6 +41,22 @@
 				<p><strong>Nome: </strong> {{usuario.nome}}</p>
 				<p><strong>E-mail: </strong> {{usuario.email}}</p>
 				<p><strong>ID: </strong> {{usuario.id}}</p>
+				<hr>
+				<b-button
+					variant="warning"
+					size="lg"
+					@click="carregar(usuario.id)"
+				>
+					Carregar
+				</b-button>
+				<b-button
+					variant="danger"
+					size="lg"
+					class="ml-2"
+					@click="excluir(usuario.id)"
+				>
+					Excluir
+				</b-button>
 			</b-list-group-item>
 		</b-list-group>
 	</div>
@@ -52,24 +68,46 @@ export default {
 		return {
 			usuarios: [],
 			usuario: {
+				id: null,
 				nome: "",
 				email: ""
 			}
 		}
 	},
 	methods: {
+		limpar() {
+			this.usuario = {
+				id: null,
+				nome: "",
+				email: ""
+			}
+		},
 		salvar() {
-			this.$http.post("usuarios.json", this.usuario).then(
-				() => {
-					this.usuario.nome = "";
-					this.usuario.email = "";
-				}
-			)
+			const { id } = this.usuario;
+			const metodo = id ? "patch" : "post";
+			const finalUrl = id ? `/${id}.json` : ".json";
+			this.$http[metodo](`usuarios${finalUrl}`, this.usuario)
+				.then(() => { 
+					this.limpar();
+					this.obterUsuarios();
+				});
 		},
 		obterUsuarios() {
 			this.$http.get("usuarios.json").then(
 				res => {
 					this.usuarios = res.data;
+				}
+			)
+		},
+		carregar(id) {
+			const usuario = this.usuarios.filter(usuario => usuario.id === id);
+			this.usuario = { ...usuario[0] };
+		},
+		excluir(id) {
+			this.$http.delete(`usuarios/${id}.json`).then(
+				() => { 
+					this.limpar();
+					this.obterUsuarios();
 				}
 			)
 		}
