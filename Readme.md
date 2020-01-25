@@ -31,6 +31,7 @@ Para visualizar o conteúdo de cada capítulo, navegue pelo seletor de branches 
   25. animacoes/exercicios
   26. animacoes/super-quiz
   27. http/exercicios
+  28. rotas/exercicios
 
   ## Observação
   
