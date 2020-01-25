@@ -1,6 +1,15 @@
 <template>
 	<div id="app" class="container">
 		<h1>HTTP com Axios</h1>
+		<b-alert
+			show
+			dismissible
+			v-for="mensagem in mensagens"
+			:key="mensagem.texto"
+			:variant="mensagem.tipo"
+		>
+			{{ mensagem.texto }}
+		</b-alert>
 		<b-card>
 			<b-form-group labe="Nome:">
 				<b-form-input
@@ -66,6 +75,7 @@
 export default {
 	data() {
 		return {
+			mensagens: [],
 			usuarios: [],
 			usuario: {
 				id: null,
@@ -79,23 +89,41 @@ export default {
 			this.usuario = {
 				id: null,
 				nome: "",
-				email: ""
+				email: "",
+				mensagens: []
 			}
 		},
 		salvar() {
 			const { id } = this.usuario;
 			const metodo = id ? "patch" : "post";
 			const finalUrl = id ? `/${id}.json` : ".json";
+			const acao = id ? "Alteração" : "Inclusão";
 			this.$http[metodo](`usuarios${finalUrl}`, this.usuario)
 				.then(() => { 
 					this.limpar();
 					this.obterUsuarios();
+					this.mensagens.push({
+						texto: `${acao} salva com sucesso!`,
+						tipo: "success"
+					})
+				}).catch(() => {
+					this.mensagens.push({
+						texto: "Ocorreu um erro ao tentar salvar as alterações.",
+						tipo: "danger"
+					})
 				});
 		},
 		obterUsuarios() {
 			this.$http.get("usuarios.json").then(
 				res => {
-					this.usuarios = res.data;
+					if(res.data.length) {
+						this.usuarios = res.data;
+					} else {
+						this.mensagens.push({
+							texto: "Não há usuários cadastrados.",
+							tipo: "warning"
+						})
+					}
 				}
 			)
 		},
@@ -108,8 +136,17 @@ export default {
 				() => { 
 					this.limpar();
 					this.obterUsuarios();
+					this.mensagens.push({
+						texto: "Usuário excluído com sucesso!",
+						tipo: "success"
+					})
 				}
-			)
+			).catch(() => {
+				this.mensagens.push({
+					texto: "Ocorreu um erro ao tentar excluir o usuário.",
+					tipo: "danger"
+				})
+			})
 		}
 	}
 }
