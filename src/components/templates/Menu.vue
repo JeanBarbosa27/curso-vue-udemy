@@ -27,8 +27,12 @@ export default {
           text: "Início"
         },
         {
-          path: "/usuario",
-          text: "Usuário"
+          path: "/usuario/1",
+          text: "Usuário 1"
+        },
+        {
+          path: "/usuario/2",
+          text: "Usuário 2"
         },
       ]
     }
