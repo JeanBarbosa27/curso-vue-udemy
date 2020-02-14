@@ -2,6 +2,8 @@
   <div class="usuario-detalhe">
       <h3>Detalhe do usuário {{ id }}</h3>
       <p><strong>Nome:</strong> {{ $route.params.user }}</p>
+      <p><strong>Cadastro completo:</strong> {{ $route.query.completo ? "Sim" : "Não" }}</p>
+      <p><strong>Língua:</strong> {{ $route.query.lingua }}</p>
       <router-link
         tag="button"
         primario

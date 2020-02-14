@@ -8,7 +8,11 @@
         tag="li"
         exact
         class="item-lista"
-        :to="{ name: 'detalheUsuario', params: {id: usuario.id, user: usuario.nome}}"
+        :to="{
+          name: 'detalheUsuario',
+          params: {id: usuario.id, user: usuario.nome },
+          query: { completo: usuario.completo, lingua: usuario.lingua }
+        }"
       >
         {{ usuario.nome }}
       </router-link>
@@ -25,15 +29,21 @@ export default {
       usuarios: [
         {
           id: 1,
-          nome: "Maria"
+          nome: "Mary",
+          completo: false,
+          lingua: "en-us"
         },
         {
           id: 2,
-          nome: "João"
+          nome: "João",
+          completo: true,
+          lingua: "pt-pt"
         },
         {
           id: 3,
-          nome: "Jesus"
+          nome: "Rafael",
+          completo: false,
+          lingua: "pt-br"
         },
       ]
     }
