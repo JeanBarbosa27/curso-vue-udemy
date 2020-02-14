@@ -7,9 +7,10 @@
       <router-link
         tag="button"
         primario
-        :to="{
+        :to="{ 
           name: 'editarUsuario',
-          params: { id: id, user: $route.params.user }
+          params: { id: id, user: $route.params.user },
+          hash: '#rodape'
         }"
       >
         Editar

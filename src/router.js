@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import Inicio from './components/Inicio';
+import Menu from "./components/templates/Menu";
 import Usuario from './components/usuarios/Usuario';
 import UsuarioDetalhe from './components/usuarios/UsuarioDetalhe';
 import UsuarioEditar from './components/usuarios/UsuarioEditar';
@@ -10,10 +11,22 @@ Vue.use(Router);
 
 export default new Router({
   mode: "history",
+  scrollBehavior(to, from, savedPosition) {
+    if(savedPosition) {
+      return { savedPosition }
+    } else if(to.hash) {
+      return { selector: to.hash }
+    } else {
+      return { x: 0, y: 0 }
+    }
+  },
   routes: [
     {
       path: "/",
-      component: Inicio
+      components: {
+        default: Inicio,
+        menu: Menu
+      }
     },
     {
       path: "/usuarios",

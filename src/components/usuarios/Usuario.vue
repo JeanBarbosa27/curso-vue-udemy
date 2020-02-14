@@ -3,7 +3,7 @@
     <h2>Usuario</h2>
     <hr/>
     <router-view />
-    <button sucesso @click="irParaInicio">Voltar para início</button>
+    <button sucesso @click="irParaInicio">Voltar</button>
   </div>
 </template>
 
@@ -17,6 +17,9 @@ export default {
   }
 }
 </script>
-<style>
+<style scoped>
+button {
+  margin-top: 15px;
+}
 
 </style>

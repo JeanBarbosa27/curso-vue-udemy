@@ -1,6 +1,7 @@
 <template>
   <div class="usuario-editar">
     <h3>Editar: {{ $route.params.user }}</h3>
+    <footer id="rodape">Curso Vue</footer>
   </div>
 </template>
 
@@ -11,6 +12,8 @@ export default {
 }
 </script>
 
-<style>
-
+<style scoped>
+#rodape {
+  margin-top: 1000px;
+}
 </style>

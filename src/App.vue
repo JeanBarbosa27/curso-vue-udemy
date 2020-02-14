@@ -1,19 +1,21 @@
 <template>
 	<div id="app">
 		<h1>Rotas com VueRouter</h1>
-    <Menu />
-		<router-view />
+		<router-view name="menu" />
+		<transition 
+			mode="out-in"
+			enter-active-class="animated lightSpeedIn"
+			leave-active-class="animated lightSpeedOut"
+		>
+			<router-view />
+		</transition>
 	</div>
 </template>
 
 <script>
-import Menu from "./components/templates/Menu";
 
 export default {
   name: "App",
-  components: {
-    Menu
-  }
 }
 </script>
 
