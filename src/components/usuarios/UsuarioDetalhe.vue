@@ -2,7 +2,6 @@
   <div class="usuario-detalhe">
       <h3>Detalhe do usuário {{ id }}</h3>
       <p><strong>Nome:</strong> {{ $route.params.user }}</p>
-      <!-- <router-link tag="button" primario :to="`/usuarios/${id}/editar`">Editar</router-link> -->
       <router-link
         tag="button"
         primario

@@ -2,16 +2,6 @@
   <div class="usuario-lista">
     <h3>Lista de usuários</h3>
     <ul class="lista">
-      <!-- <router-link
-        v-for="usuario in usuarios"
-        :key="usuario.id"
-        tag="li"
-        exact
-        class="item-lista"
-        :to="`/usuarios/${usuario.id.toString()}`"
-      >
-        {{ usuario.nome }}
-      </router-link> -->
       <router-link
         v-for="usuario in usuarios"
         :key="usuario.id"
