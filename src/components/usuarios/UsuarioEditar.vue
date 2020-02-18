@@ -12,7 +12,15 @@ export default {
   beforeRouteEnter(to, from, next) {
     console.log("Interceptação de mudança de rota, dentro do componente");
 
-    // É possível também fazer a interceptação antes que a rota seja alterada diretamente pelo componente, porém acho mais interessante que isso seja feito em routes, pois fica mais claro quais rotas tem algum tipo de verificação por autenticação ou por exemplo poderia centralizar a chamada desse "mixin".
+    // É possível também fazer a interceptação antes que a rota seja alterada diretamente pelo componente, porém acho mais interessante que isso seja feito em routes, pois fica mais claro quais rotas tem algum tipo de verificação por autenticação ou por exemplo poderia centralizar a chamada desse "mixin". Nesse caso aqui não se tem ainda acesso às propriedades, métodos e dados do componente através do this, pois nesse momento o componente ainda não foi criado. Para acessar essas informações, é possíve da seguinte forma:
+    /*
+      next( vueInstance => {
+        console.log("prop id: ", vueInstance.id)
+        console.log("params: ", vueInstance.$route.params)
+      })
+
+      // Apesar de não ser normalmente usado dessa forma.
+    */
 
     // next(autenticado); // Acho essa forma de permitir ou não a navegação mais sucinta, pois economiza no if (conforme o exemplo da interceptação específica da rota em routes.js), porém com ela não é possível fazer uma ação para caso a autenticação não seja permitida, e visualmente para o usuário não teria nenhuma resposta.
 
