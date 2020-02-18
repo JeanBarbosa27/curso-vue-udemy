@@ -2,12 +2,15 @@ import Vue from 'vue';
 import Router from 'vue-router';
 import Inicio from './components/Inicio';
 import Menu from "./components/templates/Menu";
-import Usuario from './components/usuarios/Usuario';
-import UsuarioDetalhe from './components/usuarios/UsuarioDetalhe';
-import UsuarioEditar from './components/usuarios/UsuarioEditar';
-import UsuarioLista from './components/usuarios/UsuarioLista';
 
 Vue.use(Router);
+
+// Caso a aplicação seja muito grande, por exemplo que tenha um menu que tenha vários setores da empresa e cada um desses módulos carregue muitos componentes. Para que no carregamento inicial, não venha um app.js muito grande, é possível fragmentar os arquivos que serão carregados na aplicação, de acordo com a rota que irá chamá-los. Para isso no lugar de chamar o import dos componentes de forma estática, é possível instanciar o import em constante em formato de callback. É possível ainda agrupar esses imports dinâmicos, usando o cometário 'webpackChunkName: "nomeDoAgrupamento"', e perceberá que no carregamento inicial agora terá a requisição para o app.js e a requisição para o arquivo de JS com o nome do agrupamento que foi passado no comentário do chunk name. Veja abaixo um exemplo de fragmentação dos componentes de usuário.
+
+const Usuario = () => import(/*webpackChunkName: "usuario"*/'./components/usuarios/Usuario');
+const UsuarioDetalhe = () => import(/*webpackChunkName: "usuario"*/'./components/usuarios/UsuarioDetalhe');
+const UsuarioEditar = () => import(/*webpackChunkName: "usuario"*/'./components/usuarios/UsuarioEditar');
+const UsuarioLista = () => import(/*webpackChunkName: "usuario"*/'./components/usuarios/UsuarioLista');
 
 const routes = new Router({
   mode: "history",
