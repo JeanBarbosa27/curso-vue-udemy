@@ -2,6 +2,7 @@
   <div class="usuario-editar">
     <h3>Editar: {{ $route.params.user }}</h3>
     <footer id="rodape">Curso Vue</footer>
+    <button primario @click="confirmado = true" >Confirmar</button>
   </div>
 </template>
 
@@ -9,6 +10,11 @@
 export default {
   name: "UsuaioEditar",
   props: ["id"],
+  data() {
+    return {
+      confirmado: false
+    }
+  },
   beforeRouteEnter(to, from, next) {
     console.log("Interceptação de mudança de rota, dentro do componente");
 
@@ -27,6 +33,18 @@ export default {
     // Uma outra forma de fazer aqui, sem usar diretamnte o if poderia ser:
     const autenticado = true;
     autenticado ? next() : next("/?redirect=editarUsuario"); // De modo que se não tiver autenticado é redirecionado para home ou poderia ser para /login e após o procedimento de login, poderia ser redirecionado de volta para esse componente, mas para isso precisaria de uma tratativa na rota de login, caso recebesse "redirect" como parâmetro de URL.
+  },
+  beforeRouteLeave(to, from, next) {
+    // Esse método é utilizado para interceptar a saída da rota. Pode ser usado por exemplo para confirmar com o usuário se ele deseja realmente sair da página ou por exemplo, para salvar os dados do formulário, de modo que quando ele volte, os dados ainda estejam preenchidos
+    console.log("Interceptação da rota antes de sair da mesma")
+
+    if(this.confirmado) {
+      next()
+    } else {
+      if(confirm("Está certo de que deseja sair?")) {
+        next()
+      }
+    }
   }
 }
 </script>
