@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import { mapMutations } from "vuex";
+import { mapActions } from "vuex";
 
 export default {
     data() {
@@ -22,7 +22,7 @@ export default {
         }
     },
     methods: {
-        ...mapMutations(["adicionarProduto"]),
+        ...mapActions(["adicionarProduto"]),
         adicionar() {
             const produto = {
                 id: this.sequencia,
@@ -32,11 +32,17 @@ export default {
             }
             this.sequencia++
 
-            // Forma de chamar usando o commit com o método importado a partir de mapMutations
-            this.$store.commit('adicionarProduto', produto);
-
             // Forma de adicionar direto no state da store
             // this.$store.state.produtos.push(produto);
+
+            // Forma de chamar usando o commit com o método importado a partir de mapMutations (lembrando que para esse cenário, precisa ter importado o mapMutations e instanciado em methods)
+            // this.$store.commit('adicionarProduto', produto);
+
+            // Forma de despachar uma action direto da store
+            // this.$store.dispatch("adicionarProduto", produto)
+
+            // Forma de adicionar produto, chamando o método do mapActions
+            this.adicionarProduto(produto);
         }
     }
 }
@@ -55,5 +61,9 @@ export default {
     input {
         font-size: 2rem;
         width: 90px;
+    }
+
+    button {
+        cursor: pointer;
     }
 </style>
