@@ -1,7 +1,7 @@
 <template>
     <Painel titulo="Carrinho" azul :notificacao="produtos.length">
         <div class="carrinho">
-            <table>
+            <table v-if="produtos.length">
                 <thead>
                     <tr>
                         <th>Nome</th>
@@ -17,8 +17,9 @@
                     </tr>
                 </tbody>
             </table>
-            <hr>
-            <div class="total">
+            <p v-else >Você ainda não possui produtos no carrinho!</p>
+            <hr v-if="produtos.length">
+            <div v-if="produtos.length" class="total">
                 <span>Total: <strong>{{ total | dinheiro }}</strong></span>
             </div>
         </div>
