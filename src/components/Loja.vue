@@ -50,6 +50,12 @@ export default {
 
             // Forma de adicionar produto, chamando o método do mapActions
             this.adicionarProduto(produto);
+            
+            // eslint-disable-next-line
+            console.log("Nome a partir do state global usando um getter global, ambos não modularizados: ", this.$store.getters.getNome);
+            
+            // eslint-disable-next-line
+            console.log("Nome completo a partir do state global usando um getter global, ambos não modularizados: ", this.$store.getters.getNomeCompleto);
         }
     }
 }
