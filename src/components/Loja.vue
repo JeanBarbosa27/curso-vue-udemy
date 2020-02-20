@@ -2,24 +2,31 @@
     <Painel titulo="Loja Virtual" verde>
         <div class="loja">
             <span>Adicionar</span>
-            <input type="number" v-model.number="quantidade">
+            <input type="number" disabled v-model.number="quantidade">
             <span>itens de <strong>R$</strong></span>
-            <input type="number" v-model.number="preco">
+            <input type="number" disabled v-model.number="preco">
             <button @click="adicionar">Agora!</button>
         </div>
     </Painel>
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 
 export default {
     data() {
         return {
             sequencia: 1,
-            quantidade: 1,
-            preco: 9.99,
         }
+    },
+    computed: {
+        ...mapGetters(["getQuantidade", "getPreco"]),
+        quantidade() {
+            return this.getQuantidade;
+        },
+        preco() {
+            return this.getPreco;
+        },
     },
     methods: {
         ...mapActions(["adicionarProduto"]),

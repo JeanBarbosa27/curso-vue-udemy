@@ -14,12 +14,30 @@
 </template>
 
 <script>
+import{ mapGetters, mapActions } from "vuex";
+
 export default {
-    data() {
-        return {
-            quantidade: 0,
-            preco: 0
-        }
+    computed: {
+        ...mapGetters(["getQuantidade", "getPreco"]),
+        quantidade: {
+            get() {
+                return this.getQuantidade;
+            },
+            set(payload) {
+                return this.setQuantidade(payload);
+            }
+        },
+        preco: {
+            get() {
+                return this.getPreco;
+            },
+            set(payload) {
+                return this.setPreco(payload);
+            }
+        },
+    },
+    methods: {
+        ...mapActions(["setQuantidade", "setPreco"])
     }
 }
 </script>
