@@ -33,6 +33,7 @@ Para visualizar o conteúdo de cada capítulo, navegue pelo seletor de branches 
   27. http/exercicios
   28. rotas/exercicios
   29. vuex/exercicios
+  30. projeto-3/stock-trader
 
   ## Observação
   
