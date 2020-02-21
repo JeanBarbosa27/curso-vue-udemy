@@ -13,7 +13,7 @@ import { mapGetters } from "vuex";
 
 export default {
     // Forma de pegar o total lendo getters direto da store
-    computed: mapGetters({
+    computed: mapGetters('carrinho', {
         total: "valorTotal"
     })
     // Forma de pegar o total com mapGetters, sendo que aqui vai precisar renomear a propriedade de total para valor total no template

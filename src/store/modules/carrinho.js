@@ -1,4 +1,5 @@
 export default {
+  namespaced: true,
   state: {
     produtos: [],
   },
@@ -23,6 +24,17 @@ export default {
       setTimeout(() => {
         commit("adicionarProduto", payload);
       }, 1000)
-    }
+    },
+    
+    // É possível jogar uma função para a raiz da store, diretamente simplesmente fazendo conforme abaixo:
+    // adicionarProduto: {
+    //   root: true,
+    //   handler({ commit }, payload) {
+    //     // Apenas para simular o tempo de uma requisição ajax
+    //     setTimeout(() => {
+    //       commit("adicionarProduto", payload);
+    //     }, 1000)
+    //   }
+    // }
   }
 }
