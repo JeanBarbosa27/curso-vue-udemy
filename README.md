@@ -37,29 +37,19 @@ As rotas apresentadas foram:
 ---
 
 ## Project setup
-```
-npm install
-```
+`yarn install` ou `npm install`
 
 ### Compiles and hot-reloads for development
-```
-npm run serve
-```
+`yarn serve` ou `npm run serve`
 
 ### Compiles and minifies for production
-```
-npm run build
-```
+`yarn build` ou `npm run build`
 
 ### Run your tests
-```
-npm run test
-```
+`yarn test` ou `npm run test`
 
 ### Lints and fixes files
-```
-npm run lint
-```
+`yarn lint` ou `npm run lint`
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
