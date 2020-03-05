@@ -1,5 +1,4 @@
 export default {
-  getListFrom(module) {
-    return state[module].list;
-  }
+  getListFrom: (module) => state[module].list,
 }
+
