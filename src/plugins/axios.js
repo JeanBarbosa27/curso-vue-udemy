@@ -3,9 +3,9 @@ import axios from 'axios';
 
 Vue.use({
   install(Vue) {
-    Vue.prototype.$http = axios.create {
+    Vue.prototype.$http = axios.create({
       baseURL: 'inserir-url-do-projeto-no-firebase',
-    }
+    }),
 
     Vue.prototype.$http.interceptors.response.use(response => {
       const array = [];
@@ -15,8 +15,8 @@ Vue.use({
 
       res.data = array;
       return res
-    }, error => Promise.reject(error));
-  }
+    }, error => Promise.reject(error))
+  },
 });
 
 
