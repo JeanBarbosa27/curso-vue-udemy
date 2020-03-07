@@ -1,3 +1,10 @@
-export const getListFrom = (state, module) => state[module].list;
-export const getBalance = state => state.balance;
+export default {
+ getListFrom(state, module) {
+   return state[module].list
+ },
 
+ getBalance(state) {
+  return state.balance
+ },
+
+}

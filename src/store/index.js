@@ -1,12 +1,12 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 
-import portifolio from './modules/portifolio';
+import portfolio from './modules/portfolio';
 import stocks from './modules/stocks';
-import * as state from './state';
-import * as getters from './getters';
-import * as mutations from './mutations';
-import * as actions from './actions';
+import state from './state';
+import getters from './getters';
+import mutations from './mutations';
+import actions from './actions';
 
 
 Vue.use(Vuex);
@@ -14,11 +14,10 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state,
   getters,
-  mutations,
   actions,
+  mutations,
   modules: {
-    portifolio,
+    portfolio,
     stocks,
-  },
-  
+  }, 
 })
