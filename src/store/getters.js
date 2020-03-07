@@ -1,4 +1,2 @@
-export default {
-  getListFrom: (module) => state[module].list,
-}
+export const getListFrom = (state, module) => state[module].list
 

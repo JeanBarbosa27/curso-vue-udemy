@@ -11,11 +11,11 @@ import * as actions from './actions';
 
 Vue.use(Vuex);
 
-export default Vuex.Store({
+export default new Vuex.Store({
   state,
   getters,
   mutations,
-  actions
+  actions,
   modules: {
     portifolio,
     stocks,
