@@ -1,10 +1,14 @@
 <template>
-	<h1>Stock Trader</h1>
+  <div id="app">
+    <h1>Stock Trader</h1>
+    <router-view />
+  </div>
 </template>
 
 <script>
-export default {
 
+export default {
+  name: 'App',
 }
 </script>
 
