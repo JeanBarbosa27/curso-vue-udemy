@@ -44,8 +44,13 @@
     margin: 0;
     margin-bottom: 10px;
     padding: 10px;
+    font-size: 1.1em;
     border: 0;
     box-shadow: 0 3px 6px rgba(0,0,0,0.3);
+  }
+  
+  .home .home__alert .v-alert__icon {
+    color: #ffffff;
   }
 
   .home__divider {
