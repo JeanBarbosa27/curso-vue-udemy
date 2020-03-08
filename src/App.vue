@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app" class="stock-trader">
     <h1>Stock Trader</h1>
     <router-view />
   </div>
@@ -13,6 +13,8 @@ export default {
 </script>
 
 <style>
-
+.stock-trader {
+  font-family: 'Roboto', sans-serif, Arial;
+}
 </style>
 
