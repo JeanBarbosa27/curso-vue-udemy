@@ -7,6 +7,8 @@ import router from './router'
 import './plugins/vuetify'
 import './plugins/axios'
 
+Vue.filter('formatarMoeda', valor => valor.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' }) )
+
 Vue.config.productionTip = false
 
 new Vue({
