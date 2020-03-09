@@ -9,8 +9,7 @@
       <strong>stock</strong><span>trader</span>
     </div>
     <div class="header__menu">
-      <span>Inserir menu de rotas</span>
-      <span>Inserir menu de ações</span>
+      <Menu />
     </div>
     <span class="header__balance">saldo {{ getBalance | currencyFormat }}</span>
   </v-app-bar>
@@ -18,8 +17,13 @@
 
 <script>
   import { mapGetters } from 'vuex';
+  import Menu from './Menu';
+
   export default {
     name: 'Header',
+    components: {
+      Menu,
+    },
     computed: {
       ...mapGetters(['getBalance']),
     }
