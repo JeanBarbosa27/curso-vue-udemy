@@ -9,12 +9,12 @@ Vue.use({
 
     Vue.prototype.$http.interceptors.response.use(response => {
       const array = [];
-      for(let key in res.data) {
-        array.push({ id: key, ...res.data[key] });
+      for(let key in response.data) {
+        array.push({ id: key, ...response.data[key] });
       }
 
-      res.data = array;
-      return res
+      response.data = array;
+      return response;
     }, error => Promise.reject(error))
   },
 });
