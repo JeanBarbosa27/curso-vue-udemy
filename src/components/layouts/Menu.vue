@@ -7,6 +7,8 @@
         :to="item.path"
         class="menu__item"
         tag="li"
+        exact
+        active-class="active"
       >{{ item.text }}</router-link>
     </ul>
   </nav>
@@ -18,6 +20,10 @@
     data() {
       return {
         items: [
+          {
+            path: '/',
+            text: 'Início'
+          },
           {
             path: '/stocks',
             text: 'Stocks'
@@ -36,6 +42,21 @@
   &__list {
     display: flex;
     list-style: none;
+  }
+
+  &__item {
+    padding: 17px 10px;
+    font-size: 0.8em;
+    font-weight: 600;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background-color 300ms ease-in;
+
+    &.active,
+    &:hover,
+    &:focus {
+      background: #dddddd;
+    }
   }
 }
 </style>
