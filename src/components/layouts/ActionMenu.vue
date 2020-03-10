@@ -24,13 +24,13 @@ export default {
   name: 'ActionMenu',
   methods: {
     finishDay() {
-      console.log('Inserir lógica de finalizar o dia');
+      console.log('Inserir lógica de finalizar o dia');  // eslint-disable-line
     },
     saveData() {
-      console.log('Inserir requisição para salvar dados no Firebase');
+      console.log('Inserir requisição para salvar dados no Firebase');  // eslint-disable-line
     },
     loadData() {
-      console.log('Inserir requisição para carregar dados do Firebase');
+      console.log('Inserir requisição para carregar dados do Firebase');  // eslint-disable-line
     }
   }
 }
