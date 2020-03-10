@@ -6,10 +6,13 @@
     height="50px"
   >
     <div class="logo">
-      <strong>stock</strong><span>trader</span>
+      <router-link class="logo__link" to="/">
+        <strong>stock</strong><span>trader</span>
+      </router-link>
     </div>
     <div class="header__menu">
       <Menu />
+      <ActionMenu />
     </div>
     <span class="header__balance">saldo {{ getBalance | currencyFormat }}</span>
   </v-app-bar>
@@ -18,11 +21,13 @@
 <script>
   import { mapGetters } from 'vuex';
   import Menu from './Menu';
+  import ActionMenu from './ActionMenu';
 
   export default {
     name: 'Header',
     components: {
       Menu,
+      ActionMenu,
     },
     computed: {
       ...mapGetters(['getBalance']),
@@ -48,6 +53,12 @@
    .logo {
       font-size: 1.5em;
       text-transform: uppercase;
+
+      &__link {
+        color: #333333;
+        text-decoration: none;  
+        cursor: pointer;
+      }
     }   
   }
 
