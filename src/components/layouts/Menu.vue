@@ -25,12 +25,12 @@
             text: 'Início'
           },
           {
-            path: '/stocks',
-            text: 'Stocks'
+            path: '/portfolio',
+            text: 'Portfólio'
           },
           {
-            path: '/portfolio',
-            text: 'Portfolio'
+            path: '/stocks',
+            text: 'Ações'
           },
         ]
       }
