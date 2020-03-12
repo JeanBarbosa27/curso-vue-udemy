@@ -1,10 +1,6 @@
 export default {
- getListFrom(state, module) {
-   return state[module].list
- },
+ getListFrom: state => module => state[module].list,
 
- getBalance(state) {
-  return state.balance
- },
+ getBalance: state => state.balance,
 
 }
