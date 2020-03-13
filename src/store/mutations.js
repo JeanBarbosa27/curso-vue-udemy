@@ -17,7 +17,7 @@ export default {
 
     state[module].list.map((item, index) => {
       if(item.name === name) {
-        return state[module].list[index][quantity] = quantity;
+        return state[module].list[index].quantity = quantity;
       }
     });
   },
