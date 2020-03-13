@@ -13,6 +13,7 @@
             label="Quantidade"
             :inputName="item.name"
             :inputValue="+item.quantity"
+            :onInput="setQuantity"
             submitText="Vender"
             :formSubmit="sellPortfolio"
             slot="content"
@@ -24,7 +25,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters, mapMutations } from 'vuex';
 import Card from '../components/fragments/Card';
 import Form from '../components/fragments/Form';
 
@@ -41,6 +42,17 @@ export default {
     } 
   },
   methods: {
+    ...mapMutations(['updateQuantity']),
+    setQuantity({ target: { name, value }}) {
+      // TODO: Fazer lógica de verificação, que será usada na hora de vender, pois não podem ter mais itens selecionados pra venda do que se tem registrado no portfolio
+      const payload = {
+        module: 'portfolio',
+        name,
+        quantity: value
+      }
+      
+      this.$store.commit('updateQuantity', payload)
+    },
     sellPortfolio() {
       console.log('Fazer a lógica para "vender" a ação') //eslint-disable-line
     }

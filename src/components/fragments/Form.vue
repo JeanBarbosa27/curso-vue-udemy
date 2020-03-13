@@ -1,14 +1,15 @@
 <template>
-  <form class="form" @submit.prevent="formSubmit">
+  <form class="form" @submit.prevent="formSubmit($event, inputName)">
     <div class="form__group">
-      <label for="quantity" class="form__label">{{ label }}</label>
+      <label for="quantity" class="form__label" :class="{ error: hasError }" >{{ label }}</label>
       <input
         type="number"
         :name="inputName"
         class="form__input"
+        :class="{ error: hasError }"
         value="0"
         min="0"
-        @input="setQuantity"
+        @input="onInput($event, inputValue)"
       />
     </div>
     <button
@@ -25,7 +26,6 @@
 </template>
 
 <script>
-import { mapMutations } from 'vuex';
 
 export default {
   name: 'Form',
@@ -33,6 +33,10 @@ export default {
     module: {
       type: String,
       required: true
+    },
+    hasError: {
+      type: Boolean,
+      default: false
     },
     label: {
       type: String,
@@ -45,6 +49,10 @@ export default {
       type: Number,
       required: true
     },
+    onInput: {
+      type: Function,
+      required: true
+    },
     submitText: {
       type: String,
       default: 'Submit'
@@ -54,19 +62,6 @@ export default {
       required: true
     }
   },
-  methods: {
-    ...mapMutations(['updateQuantity']),
-    setQuantity({ target: { name, value }}) {
-      // TODO: Fazer lógica de verificação, que será usada na hora de vender, pois não podem ter mais itens selecionados pra venda do que se tem registrado no portfolio
-      const payload = {
-        module: 'stocks',
-        name,
-        quantity: value
-      }
-      
-      this.$store.commit('updateQuantity', payload)
-    },
-  }
 }
 </script>
 
@@ -86,6 +81,10 @@ export default {
     display: block;
     margin-bottom: 10px;
     font-size: 0.6em;
+
+    &.error {
+      color: #dd5555;
+    }
   }
 
   &__input {
@@ -94,6 +93,11 @@ export default {
     font-weight: bold;
     border: 0;
     border-bottom: 1px solid #000000;
+    outline: none;
+
+    &.error {
+      border-color: #dd5555;
+    }
   }
     
   &__submit {

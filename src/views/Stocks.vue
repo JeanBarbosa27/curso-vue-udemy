@@ -10,9 +10,11 @@
           </span>
           <Form
             module="stocks"
+            :hasError="item.hasError"
             label="Quantidade"
             :inputName="item.name"
-            :inputValue="+item.quantity"
+            :inputValue="item.price"
+            :onInput="setQuantity"
             submitText="Comprar"
             :formSubmit="buyStock"
             slot="content"
@@ -24,25 +26,62 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters, mapMutations } from 'vuex';
 import Card from '../components/fragments/Card';
 import Form from '../components/fragments/Form';
 
 export default {
   name: 'Stocks',
+  data() {
+    return {
+      totalCost: 0
+    }
+  },
   components: {
     Card,
     Form
   },
   computed: {
-    ...mapGetters(['getListFrom']),
+    ...mapGetters(['getListFrom', 'getBalance']),
+    balance() {
+      return this.getBalance;
+    },
     stocks() {
       return this.getListFrom('stocks');
     } 
   },
   methods: {
-    buyStock() {
-      console.log('Fazer a lógica para "comprar" a ação') //eslint-disable-line
+  ...mapMutations([
+    'buyStock',
+    'updateBalance',
+    'updateItemError',
+    'updateQuantity'
+  ]),
+    setQuantity({ target: { name, value }}, itemPrice) {
+      this.totalCost = +value * itemPrice;
+      let payload = {
+        module: 'stocks',
+        name
+      }
+
+      if(this.totalCost < this.balance) {
+        payload = {
+          ...payload,
+          quantity: value,
+          hasError: false
+        }
+        
+        this.$store.commit('updateQuantity', payload)
+      } else {
+        payload.hasError = true;
+      }
+        this.$store.commit('updateItemError', payload)
+    },
+    
+    buyStock(event, name) {
+      const newBalance = this.balance - this.totalCost;
+      this.$store.commit('buyStock', name);
+      this.$store.commit('updateBalance', newBalance);
     }
   }
 }
