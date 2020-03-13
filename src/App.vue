@@ -1,7 +1,13 @@
 <template>
   <div id="app" class="stock-trader">
-   <Header />
-    <router-view />
+    <Header />
+    <transition 
+      mode="out-in"
+      enter-active-class="animated fadeIn"
+      leave-active-class="animated fadeOut"
+    >
+      <router-view />
+   </transition>
   </div>
 </template>
 
