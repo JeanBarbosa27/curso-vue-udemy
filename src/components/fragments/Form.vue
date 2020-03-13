@@ -1,5 +1,5 @@
 <template>
-  <form class="form" @submit.prevent="formSubmit($event, itemId)">
+  <form class="form" @submit.prevent="formSubmit($event, inputName)">
     <div class="form__group">
       <label for="quantity" class="form__label" :class="{ error: hasError }" >{{ label }}</label>
       <input
@@ -37,9 +37,6 @@ export default {
     hasError: {
       type: Boolean,
       default: false
-    },
-    itemId: {
-      type: String,
     },
     label: {
       type: String,
