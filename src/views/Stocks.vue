@@ -11,6 +11,7 @@
           <Form
             module="stocks"
             :hasError="item.hasError"
+            :itemId="item.id"
             label="Quantidade"
             :inputName="item.name"
             :inputValue="item.price"
