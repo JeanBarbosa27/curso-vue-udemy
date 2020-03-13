@@ -37,7 +37,7 @@ export default {
   computed: {
     ...mapGetters(['getListFrom']),
     portfolio() {
-      return this.getListFrom('stocks');
+      return this.getListFrom('portfolio');
     } 
   },
   methods: {
