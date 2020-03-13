@@ -1,37 +1,61 @@
 <template>
   <div class="portfolio">
-    <ul class="portfolio__list">
+    <h3 class="portfolio__empty-list" v-if="!portfolio.length">Você não possui nenhuma ação!</h3>
+    <ul class="portfolio__list" v-else>
       <li class="portfolio__item" v-for="item in portfolio" :key="item.name">
-        <v-card class="portfolio__card" tile="true">
-          <v-card-title class="portfolio__card-title">
-            {{ item.name }}
-            <span class="portfolio__card-price">
-              (Preço: {{ item.price | currencyFormat }})
-            </span>
-          </v-card-title>
-          <v-card-text>{{ item.quantity }}</v-card-text>
-        </v-card>
+        <Card module="portfolio">
+          <span slot="title">{{ item.name }}</span>
+          <span slot="subtitle">
+            (Preço: {{ item.price | currencyFormat }})
+          </span>
+          <Form
+            module="portfolio"
+            label="Quantidade"
+            :inputName="item.name"
+            :inputValue="+item.quantity"
+            submitText="Vender"
+            :formSubmit="sellPortfolio"
+            slot="content"
+          />
+        </Card>
       </li>
     </ul>
   </div>
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters, mapMutations } from 'vuex';
+import Card from '../components/fragments/Card';
+import Form from '../components/fragments/Form';
 
 export default {
   name: 'Portfolio',
+  components: {
+    Card,
+    Form
+  },
   computed: {
     ...mapGetters(['getListFrom']),
     portfolio() {
       return this.getListFrom('stocks');
     } 
+  },
+  methods: {
+    sellPortfolio() {
+      console.log('Fazer a lógica para "vender" a ação') //eslint-disable-line
+    }
   }
 }
 </script>
 
 <style lang="scss">
   .portfolio {
+    &__empty-list {
+      height: 300px;
+      text-align: center;
+      line-height: 300px;
+    }
+
     &__list {
       display: flex;
       width: 90%;
@@ -44,26 +68,10 @@ export default {
     }
 
     &__item {
-      width: calc(33% - 6.5px);
+      width: calc(33% - 12px);
+      margin-right: 7.5px;
       margin-bottom: 15px;
-
-      &:not(:nth-child(3n)) {
-        margin-right: 15px
-      }
-    }
-
-    &__card {
-      &-title {
-        padding: 10px;
-        color: #ffffff;
-        background: #487a3e;
-        line-height: 1em;
-      }
-
-      &-price {
-        padding-left: 1ch;
-        font-size: 0.8em;
-      }
+      margin-left: 7.5px;
     }
   }
 </style>
