@@ -3,9 +3,9 @@ export default {
     return state[payload.module].list.push(payload.item);
   },
   
-  buyStock: (state, name) => {
-    const item = state.stocks.list.filter(item => item.name === name);
-    state.portfolio.list.push(item[0]);
+  buyStock: (state, id) => {
+    const item = state.stocks.list.filter(item => item.id === id)[0];
+    state.portfolio.list.push(item);
   },
 
   removeListItem(state, payload) {
@@ -13,9 +13,10 @@ export default {
     return state[module].list = state[module].list.filter(item => item.name !== name);
   },
 
-  sellPortfolio(state, payload) {
-    const { name, price, newBalance } = payload;
+  sellPortfolio(state, id) {
+    // TODO: primeiro verificar se quantidade que está vendendo é o total daquele portfolio. Se for, faz a ação abaixo, se não, atualiza a quantidade. Em ambos os casos tem que atualizar o saldo novamente.
 
+    state.portfolio.list = state.portfolio.list.filter(item => item.id !== id)[0];
   },
 
   updateBalance(state, balance) { 
