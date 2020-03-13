@@ -6,7 +6,7 @@
         type="number"
         :name="inputName"
         class="form__input"
-        :value="inputValue"
+        value="0"
         min="0"
         @input="setQuantity"
       />
@@ -57,6 +57,7 @@ export default {
   methods: {
     ...mapMutations(['updateQuantity']),
     setQuantity({ target: { name, value }}) {
+      // TODO: Fazer lógica de verificação, que será usada na hora de vender, pois não podem ter mais itens selecionados pra venda do que se tem registrado no portfolio
       const payload = {
         module: 'stocks',
         name,
