@@ -24,7 +24,7 @@
 </template>
 
 <script>
-import { mapGetters, mapMutations } from 'vuex';
+import { mapGetters } from 'vuex';
 import Card from '../components/fragments/Card';
 import Form from '../components/fragments/Form';
 
