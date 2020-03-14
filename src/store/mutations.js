@@ -43,6 +43,11 @@ export default {
     })
   },
 
+  updateItemPrice: (state, payload) => {
+    const { index, newPrice } = payload;
+    state.stocks[index].price = newPrice;
+  },
+
   updateQuantity(state, payload) {
     const { name,  quantity } = payload;
 
