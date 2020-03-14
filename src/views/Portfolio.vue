@@ -74,9 +74,6 @@ export default {
     },
     sellPortfolio(event, payload) {
       const newBalance = this.getBalance + this.totalGain;
-
-      console.log('payload: ', payload);
-      
       this.$store.commit('sellPortfolio', payload);
       this.$store.commit('updateBalance', newBalance);
     }
