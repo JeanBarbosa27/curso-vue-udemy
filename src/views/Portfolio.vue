@@ -6,10 +6,11 @@
         <Card module="portfolio">
           <span slot="title">{{ item.name }}</span>
           <span slot="subtitle">
-            (Preço: {{ item.price | currencyFormat }})
+            (Preço: {{ item.price | currencyFormat }} | Qtde: {{ item.boughtQuantity }})
           </span>
           <Form
             module="portfolio"
+            :hasError="item.hasError"
             label="Quantidade"
             :inputName="item.name"
             :inputValue="+item.quantity"
@@ -31,30 +32,53 @@ import Form from '../components/fragments/Form';
 
 export default {
   name: 'Portfolio',
+  data() {
+    return {
+      totalGain: 0,
+    }
+  },
   components: {
     Card,
     Form
   },
   computed: {
-    ...mapGetters(['getListFrom']),
+    ...mapGetters(['getBalance', 'getPortfolio', 'getStockItem']),
     portfolio() {
-      return this.getListFrom('portfolio');
+      return this.getPortfolio;
     } 
   },
   methods: {
-    ...mapMutations(['updateQuantity']),
+    ...mapMutations([
+      'sellPortfolio',
+      'updateItemError',
+      'updateQuantity'
+    ]),
     setQuantity({ target: { name, value }}) {
-      // TODO: Fazer lógica de verificação, que será usada na hora de vender, pois não podem ter mais itens selecionados pra venda do que se tem registrado no portfolio
-      const payload = {
-        module: 'portfolio',
-        name,
-        quantity: value
+      const { boughtQuantity, price } = this.getStockItem(name);
+      let payload = { name }      
+      this.totalGain = +value * price;
+
+      if(value <= boughtQuantity) {
+        payload = {
+          ...payload,
+          quantity: value,
+          hasError: false,
+        }
+
+        this.$store.commit('updateQuantity', payload);
+      } else {
+        payload.hasError = true;
       }
-      
-      this.$store.commit('updateQuantity', payload)
+
+      this.$store.commit('updateItemError', payload);
     },
-    sellPortfolio() {
-      console.log('Fazer a lógica para "vender" a ação') //eslint-disable-line
+    sellPortfolio(event, payload) {
+      const newBalance = this.getBalance + this.totalGain;
+
+      console.log('payload: ', payload);
+      
+      this.$store.commit('sellPortfolio', payload);
+      this.$store.commit('updateBalance', newBalance);
     }
   }
 }

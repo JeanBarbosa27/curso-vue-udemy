@@ -1,6 +1,6 @@
 export default {
   getBalance: state => state.balance,
-
-  getListFrom: state => module => state[module].list,
-  
+  getPortfolio: state => state.stocks.filter(item => item.bought === true),
+  getStocks: state => state.stocks,
+  getStockItem: state => name => state.stocks.filter(item => item.name === name)[0],
 }

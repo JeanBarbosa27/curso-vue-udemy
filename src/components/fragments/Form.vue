@@ -1,5 +1,8 @@
 <template>
-  <form class="form" @submit.prevent="formSubmit($event, inputName)">
+  <form 
+    class="form"
+    @submit.prevent="formSubmit($event, { name: inputName, quantity: inputValue })"
+  >
     <div class="form__group">
       <label for="quantity" class="form__label" :class="{ error: hasError }" >{{ label }}</label>
       <input
@@ -7,7 +10,7 @@
         :name="inputName"
         class="form__input"
         :class="{ error: hasError }"
-        value="0"
+        :value="inputValue"
         min="0"
         @input="onInput($event, inputValue)"
       />
@@ -18,7 +21,7 @@
         stocks: module === 'stocks',
         portfolio: module === 'portfolio',
       }"
-      :disabled="inputValue < 1"
+      :disabled="hasError || inputValue < 1"
     >
       {{ submitText }}
     </button>

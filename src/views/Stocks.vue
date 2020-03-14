@@ -13,7 +13,7 @@
             :hasError="item.hasError"
             label="Quantidade"
             :inputName="item.name"
-            :inputValue="item.price"
+            :inputValue="+item.quantity"
             :onInput="setQuantity"
             submitText="Comprar"
             :formSubmit="buyStock"
@@ -42,12 +42,12 @@ export default {
     Form
   },
   computed: {
-    ...mapGetters(['getListFrom', 'getBalance']),
+    ...mapGetters(['getBalance', 'getStocks', 'getStockItem']),
     balance() {
       return this.getBalance;
     },
     stocks() {
-      return this.getListFrom('stocks');
+      return this.getStocks;
     } 
   },
   methods: {
@@ -57,12 +57,10 @@ export default {
     'updateItemError',
     'updateQuantity'
   ]),
-    setQuantity({ target: { name, value }}, itemPrice) {
-      this.totalCost = +value * itemPrice;
-      let payload = {
-        module: 'stocks',
-        name
-      }
+    setQuantity({ target: { name, value }}) {
+      const { price } = this.getStockItem(name);
+      let payload = { name };
+      this.totalCost = +value * price;
 
       if(this.totalCost < this.balance) {
         payload = {
@@ -70,17 +68,18 @@ export default {
           quantity: value,
           hasError: false
         }
-        
-        this.$store.commit('updateQuantity', payload)
+
+        this.$store.commit('updateQuantity', payload);
+
       } else {
         payload.hasError = true;
       }
-        this.$store.commit('updateItemError', payload)
+      this.$store.commit('updateItemError', payload)
     },
     
-    buyStock(event, name) {
+    buyStock(event, payload) {
       const newBalance = this.balance - this.totalCost;
-      this.$store.commit('buyStock', name);
+      this.$store.commit('buyStock', payload);
       this.$store.commit('updateBalance', newBalance);
     }
   }

@@ -1,22 +1,32 @@
 export default {
-  addListItem(state, payload) {
-    return state[payload.module].list.push(payload.item);
-  },
+  addStockItem: (state, item) => state.stocks.push(item),
   
-  buyStock: (state, id) => {
-    const item = state.stocks.list.filter(item => item.id === id)[0];
-    state.portfolio.list.push(item);
+  buyStock: (state, payload) => {
+    const { name, quantity } = payload;
+
+    state.stocks.map(item => {
+      if(item.name === name) {
+        item.quantity = 0;
+        item.bought = true;
+        item.boughtQuantity += quantity;
+      }
+    });
   },
 
-  removeListItem(state, payload) {
-    const { module, name } = payload;
-    return state[module].list = state[module].list.filter(item => item.name !== name);
-  },
+  removeStockItem: (state, name) =>  state.stocks = state.stocks.filter(item => item.name !== name),
 
-  sellPortfolio(state, id) {
-    // TODO: primeiro verificar se quantidade que está vendendo é o total daquele portfolio. Se for, faz a ação abaixo, se não, atualiza a quantidade. Em ambos os casos tem que atualizar o saldo novamente.
+  sellPortfolio(state, payload) {
+    const { name, quantity } = payload;
 
-    state.portfolio.list = state.portfolio.list.filter(item => item.id !== id)[0];
+    state.stocks.map(item => {
+      
+      if(item.name === name) {
+        const newQuantity = item.boughtQuantity - quantity;
+        item.quantity = 0;
+        item.boughtQuantity = newQuantity;
+        item.bought = newQuantity > 0 ? true : false;
+      }
+    })
   },
 
   updateBalance(state, balance) { 
@@ -24,21 +34,21 @@ export default {
   },
 
   updateItemError: (state, payload) => {
-    const { module, name, hasError } = payload;
+    const { name, hasError } = payload;
 
-    state[module].list.map((item, index) => {
+    state.stocks.map((item, index) => {
       if(item.name === name) {
-        return state[module].list[index].hasError = hasError
+        return state.stocks[index].hasError = hasError
       }
     })
   },
 
   updateQuantity(state, payload) {
-    const { module, name,  quantity } = payload;
+    const { name,  quantity } = payload;
 
-    state[module].list.map((item, index) => {
+    state.stocks.map((item, index) => {
       if(item.name === name) {
-        return state[module].list[index].quantity = quantity;
+        return state.stocks[index].quantity = quantity;
       }
     });
   },
