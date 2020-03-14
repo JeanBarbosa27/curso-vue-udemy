@@ -20,11 +20,25 @@
 </template>
 
 <script>
+
+import { mapGetters, mapMutations } from 'vuex';
+
 export default {
   name: 'ActionMenu',
+  computed: {
+    ...mapGetters(['getStocks']),
+  },
   methods: {
+    ...mapMutations(['updateItemPrice']),
     finishDay() {
-      console.log('Inserir lógica de finalizar o dia');  // eslint-disable-line
+      this.getStocks.map((item, index) => {
+        const percentage = Math.random(0,2) * 2;
+
+        if(percentage > 0.6 && percentage < 1.4 ) {
+          const newPrice = item.price * percentage;
+          this.$store.commit('updateItemPrice', { index, newPrice });
+        }
+      })
     },
     saveData() {
       console.log('Inserir requisição para salvar dados no Firebase');  // eslint-disable-line
