@@ -27,11 +27,14 @@ export default {
   name: 'ActionMenu',
   computed: {
     ...mapGetters(['getStocks']),
+    stocks() {
+      return this.getStocks;
+    }
   },
   methods: {
-    ...mapMutations(['updateItemPrice']),
+    ...mapMutations(['loadStocks', 'updateItemPrice']),
     finishDay() {
-      this.getStocks.map((item, index) => {
+      this.stocks.map((item, index) => {
         const percentage = Math.random(0,2) * 2;
 
         if(percentage > 0.6 && percentage < 1.4 ) {
@@ -41,10 +44,14 @@ export default {
       })
     },
     saveData() {
-      console.log('Inserir requisição para salvar dados no Firebase');  // eslint-disable-line
+      this.$http.post('stocks', this.stocks)
+        .then((res) => console.log(res)) // eslint-disable-line
+        .catch(error => console.log('error: ', error)); // eslint-disable-line
     },
     loadData() {
-      console.log('Inserir requisição para carregar dados do Firebase');  // eslint-disable-line
+      this.$http('stocks', this.stocks)
+        .then((data) => this.$store.commit('loadStocs'), data ) // eslint-disable-line
+        .catch(error => console.log('error: ', error)); // eslint-disable-line
     }
   }
 }
