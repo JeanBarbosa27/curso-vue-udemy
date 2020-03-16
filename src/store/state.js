@@ -1,5 +1,10 @@
 export default {
   balance: 10000,
+  message: {
+    show: false,
+    title: '',
+    content: ''
+  },
   stocks: [
     {
       name: 'BMW',

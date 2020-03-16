@@ -31,6 +31,8 @@ export default {
     })
   },
 
+  toggleMessageShow: (state, payload) => state.message.show = payload,
+
   updateBalance(state, balance) { 
     return state.balance = balance;
   },
@@ -49,6 +51,10 @@ export default {
     const { index, newPrice } = payload;
     state.stocks[index].price = newPrice;
   },
+
+  updateMessageContent: (state, payload) => state.message.content = payload,
+  
+  updateMessageTitle: (state, payload) => state.message.title = payload,
 
   updateQuantity(state, payload) {
     const { name,  quantity } = payload;
