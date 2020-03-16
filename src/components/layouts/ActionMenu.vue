@@ -26,15 +26,18 @@ import { mapGetters, mapMutations } from 'vuex';
 export default {
   name: 'ActionMenu',
   computed: {
-    ...mapGetters(['getStocks']),
-    stocks() {
-      return this.getStocks;
-    }
+    ...mapGetters(['getStocks'])
   },
   methods: {
-    ...mapMutations(['loadStocks', 'updateItemPrice']),
+    ...mapMutations([
+      'loadStocks',
+      'toggleMessageShow',
+      'updateItemPrice',
+      'updateMessageContent',
+      'updateMessageTitle'
+    ]),
     finishDay() {
-      this.stocks.map((item, index) => {
+      this.getStocks.map((item, index) => {
         const percentage = Math.random(0,2) * 2;
 
         if(percentage > 0.6 && percentage < 1.4 ) {
@@ -44,14 +47,36 @@ export default {
       })
     },
     saveData() {
-      this.$http.post('stocks', this.stocks)
-        .then((res) => console.log(res)) // eslint-disable-line
-        .catch(error => console.log('error: ', error)); // eslint-disable-line
+      this.getStocks.map(item => {
+        this.$http.post('stocks.json', item)
+          .then(() => {
+            const { commit } = this.$store;
+            const messageContent = '<p>Você já pode fechar a aplicação sem medo, pois seus dados estão seguros.</p>'
+            commit('updateMessageTitle', 'Dados salvos com sucesso!');
+            commit('updateMessageContent', messageContent);
+            commit('toggleMessageShow', true);
+            setTimeout(function() {
+              commit('toggleMessageShow', false)
+            }, 3000);
+          })
+          .catch(error => console.error('error: ', error)); // eslint-disable-line
+      })
     },
     loadData() {
-      this.$http('stocks', this.stocks)
-        .then((data) => this.$store.commit('loadStocs'), data ) // eslint-disable-line
-        .catch(error => console.log('error: ', error)); // eslint-disable-line
+      this.$http('stocks.json')
+        .then((response) => {
+          this.$store.commit('loadStocks', response.data);
+          const { commit } = this.$store;
+          const messageContent = '<p>Nas páginas de portfólio e ações você pode verificar os dados que foram carregados.</p>'
+
+          commit('updateMessageTitle', 'Dados carregados com sucesso!');
+          commit('updateMessageContent', messageContent);
+          commit('toggleMessageShow', true);
+          setTimeout(function() {
+            commit('toggleMessageShow', false)
+          }, 3000);
+        })
+        .catch(error => console.error('error: ', error)); // eslint-disable-line
     }
   }
 }
