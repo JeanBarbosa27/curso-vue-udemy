@@ -13,6 +13,8 @@ export default {
     });
   },
 
+  loadStocks: (state, data) => state.stocks = data,
+
   removeStockItem: (state, name) =>  state.stocks = state.stocks.filter(item => item.name !== name),
 
   sellPortfolio(state, payload) {
