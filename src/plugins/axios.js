@@ -4,7 +4,7 @@ import axios from 'axios';
 Vue.use({
   install(Vue) {
     Vue.prototype.$http = axios.create({
-      baseURL: 'inserir-url-do-projeto-no-firebase',
+      baseURL: 'https://curso-vue-udemy-e262c.firebaseio.com/',
     }),
 
     Vue.prototype.$http.interceptors.response.use(response => {
