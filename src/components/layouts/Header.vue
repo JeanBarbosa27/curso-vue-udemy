@@ -37,7 +37,11 @@
 
 <style lang="scss">
   .header {
-    
+    position: relative;
+    top: 0;
+    left: 0;
+    z-index: 1;
+
     &__menu {
       display: flex;
       flex: 1 1 100%;
