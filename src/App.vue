@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters, mapMutations } from 'vuex';
 import Header from './components/layouts/Header.vue';
 import Message from './components/fragments/Message';
 
@@ -26,12 +26,43 @@ export default {
     Message
   },
   computed: {
-    ...mapGetters(['getMessage']),
+    ...mapGetters([
+      'getMessage',
+      'getPortfolio'
+    ]),
+    portfolio() {
+      return this.getPortfolio;
+    }
+  },
+  methods: {
+    ...mapMutations([
+      'loadStocks',
+      'updateBalance',
+      'updateStockSum',
+    ]),
+  },
+  created() {
+    const { commit } = this.$store;
+    let newStockSum = 0;
+
+    this.$http('stocks.json').then(response => {
+      commit('loadStocks', response.data);
+      if(this.portfolio.length) {
+        this.portfolio.map(item => {
+          newStockSum += item.boughtQuantity * item.price;
+        });
+        commit('updateStockSum', newStockSum);
+        commit('updateBalance', 'buy');
+      }
+    }).catch(error => {
+      console.error('error: ', error); // eslint-disable-line  
+    })
+    
   }
 }
 </script>
 
-<style>
+<style lang="scss">
 .stock-trader {
   font-family: 'Roboto', sans-serif, Arial;
 }
