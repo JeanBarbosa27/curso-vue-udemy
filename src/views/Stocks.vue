@@ -55,12 +55,14 @@ export default {
     'buyStock',
     'updateBalance',
     'updateItemError',
-    'updateQuantity'
+    'updateQuantity',
+    'updateStockSum'
   ]),
     setQuantity({ target: { name, value }}) {
+      const { commit } = this.$store;
       const { price } = this.getStockItem(name);
       let payload = { name };
-      this.totalCost = +value * price;
+      commit('updateStockSum', +value * price);
 
       if(this.totalCost < this.balance) {
         payload = {
@@ -69,18 +71,17 @@ export default {
           hasError: false
         }
 
-        this.$store.commit('updateQuantity', payload);
+        commit('updateQuantity', payload);
 
       } else {
         payload.hasError = true;
       }
-      this.$store.commit('updateItemError', payload)
+      commit('updateItemError', payload)
     },
     
     buyStock(event, payload) {
-      const newBalance = this.balance - this.totalCost;
       this.$store.commit('buyStock', payload);
-      this.$store.commit('updateBalance', newBalance);
+      this.$store.commit('updateBalance', 'buy');
     }
   }
 }

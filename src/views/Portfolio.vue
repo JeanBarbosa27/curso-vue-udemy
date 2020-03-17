@@ -51,12 +51,14 @@ export default {
     ...mapMutations([
       'sellPortfolio',
       'updateItemError',
-      'updateQuantity'
+      'updateQuantity',
+      'updateStockSum'
     ]),
     setQuantity({ target: { name, value }}) {
+      const { commit } = this.$store;
       const { boughtQuantity, price } = this.getStockItem(name);
       let payload = { name }      
-      this.totalGain = +value * price;
+      commit('updateStockSum', +value * price);
 
       if(value <= boughtQuantity) {
         payload = {
@@ -65,17 +67,16 @@ export default {
           hasError: false,
         }
 
-        this.$store.commit('updateQuantity', payload);
+        commit('updateQuantity', payload);
       } else {
         payload.hasError = true;
       }
 
-      this.$store.commit('updateItemError', payload);
+      commit('updateItemError', payload);
     },
     sellPortfolio(event, payload) {
-      const newBalance = this.getBalance + this.totalGain;
       this.$store.commit('sellPortfolio', payload);
-      this.$store.commit('updateBalance', newBalance);
+      this.$store.commit('updateBalance', 'sell');
     }
   }
 }

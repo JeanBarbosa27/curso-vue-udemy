@@ -33,8 +33,12 @@ export default {
 
   toggleMessageShow: (state, payload) => state.message.show = payload,
 
-  updateBalance(state, balance) { 
-    return state.balance = balance;
+  updateBalance(state, action) { 
+    if(action === 'buy') {
+      return state.balance = state.balance - state.stockSum;
+    } else if(action === 'sell') {
+      return state.balance = state.balance + state.stockSum;
+    }
   },
 
   updateItemError: (state, payload) => {
@@ -66,4 +70,5 @@ export default {
     });
   },
 
+  updateStockSum: (state, payload) => state.stockSum = payload,
 }
