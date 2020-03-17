@@ -46,37 +46,48 @@ export default {
         }
       })
     },
-    saveData() {
-      this.getStocks.map(item => {
-        this.$http.post('stocks.json', item)
-          .then(() => {
-            const { commit } = this.$store;
-            const messageContent = '<p>Você já pode fechar a aplicação sem medo, pois seus dados estão seguros.</p>'
-            commit('updateMessageTitle', 'Dados salvos com sucesso!');
-            commit('updateMessageContent', messageContent);
-            commit('toggleMessageShow', true);
-            setTimeout(function() {
-              commit('toggleMessageShow', false)
-            }, 3000);
-          })
-          .catch(error => console.error('error: ', error)); // eslint-disable-line
-      })
+    showMessage(title, content, timeout) {
+      const { commit } = this.$store;
+      commit('updateMessageTitle', title);
+      commit('updateMessageContent', content);
+      commit('toggleMessageShow', true);
+
+      setTimeout(function() {
+        commit('toggleMessageShow', false)
+      }, timeout);
     },
-    loadData() {
+    saveData() {
+      var messageContent = '';
+      
+      this.getStocks.map(item => {
+
+        this.$http.patch(`stocks/${item.id}.json`, item)
+          .then(() => {
+            messageContent = '<p>Você já pode fechar a aplicação sem medo, pois seus dados estão seguros.</p>'
+            this.showMessage('Dados salvos com sucesso!', messageContent, 3000)
+          })
+          .catch(error => {
+            messageContent = '<p>Não foi possível salvar os dados referentes às ações e ao portfólio cadastrados, por favor verifique sua conexão com a internet e se o erro persistir, tente novamente mais tarde</p>';
+            this.showMessage('Erro ao salvar dados!', messageContent, 5000);
+            console.error('error: ', error) //eslint-disable-line
+          });
+      })
+
+    },
+    loadData() {  
+      var messageContent = '';
+
       this.$http('stocks.json')
         .then((response) => {
           this.$store.commit('loadStocks', response.data);
-          const { commit } = this.$store;
-          const messageContent = '<p>Nas páginas de portfólio e ações você pode verificar os dados que foram carregados.</p>'
-
-          commit('updateMessageTitle', 'Dados carregados com sucesso!');
-          commit('updateMessageContent', messageContent);
-          commit('toggleMessageShow', true);
-          setTimeout(function() {
-            commit('toggleMessageShow', false)
-          }, 3000);
+          messageContent = '<p>Nas páginas de portfólio e ações você pode verificar os dados que foram carregados.</p>'
+          this.showMessage('Dados carregados com sucesso!', messageContent, 3000);
         })
-        .catch(error => console.error('error: ', error)); // eslint-disable-line
+        .catch(error => {
+          messageContent = '<p>Não foi possível carregar os dados referentes às ações e ao portfólio cadastrados, por favor verifique sua conexão com a internet e se o erro persistir, tente novamente mais tarde</p>';
+          this.showMessage('Erro ao salvar dados!', messageContent, 5000);
+          console.error('error: ', error); // eslint-disable-line
+        }); 
     }
   }
 }
@@ -134,7 +145,7 @@ export default {
     }
 
     &-item {
-      padding: 10px;
+      padding: 17px 10px;
       font-size: 0.8em;
       font-weight: 600;
       cursor: pointer;
