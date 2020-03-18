@@ -34,6 +34,8 @@ As rotas apresentadas foram:
     - Salvar automaticamente a cada compra ou venda de ações (pode salvar de fato só quando for sair da rota após ter comprado ou vendido, a fim de reduzir as chamadas ao Firebase);
     - Filtrar o ramo de negócios das empresas que quer ver na listas de ações para comprar.
 
+**Implementei minha solução na branch projeto-3/stock-trader__solucao-jean. Nessa branch aqui segui com a solução apresentada pelo curso, a fim de comparar o que eu fiz por conta própria a partir do escopo do projeto versus o que o curso apresenta como solução, com o objetivo de praticar e estudar formas diferentes de fazer a mesma aplicação.**
+
 ---
 
 ## Project setup
