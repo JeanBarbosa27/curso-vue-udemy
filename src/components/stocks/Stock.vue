@@ -1,5 +1,5 @@
 <template>
-  <vflex class="pr-3 pb-3" xs12 md6 lg4 >
+  <v-flex class="pr-3 pb-3" xs12 md6 lg4 >
     <v-card class="green darken-3 white--text">
       <v-card-title class="headline">
         <strong>NOME <small>(Preço: PRECO)</small></strong>
@@ -11,7 +11,7 @@
         <v-btn class="green darken-3 white--text">Comprar</v-btn>
       </v-container>
     </v-card>
-  </vflex>
+  </v-flex>
 </template>
 
 <script>
