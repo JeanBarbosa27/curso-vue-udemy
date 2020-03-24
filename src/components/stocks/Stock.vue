@@ -7,13 +7,18 @@
     </v-card>
     <v-card>
       <v-container fill-height="">
-        <v-text-field label="Quantidade" type="number" v-model.number="quantity" />
+        <v-text-field
+          label="Quantidade"
+          type="number"
+          v-model.number="quantity"
+          :error="insufficientFunds || quantity < 0 || !Number.isInteger(quantity)"
+        />
         <v-btn
           class="green darken-3 white--text"
-          :disabled="quantity <= 0 || !Number.isInteger(quantity)"
+          :disabled="insufficientFunds || quantity <= 0 || !Number.isInteger(quantity)"
           @click="buyStock"
         >
-          Comprar
+          {{ insufficientFunds ? 'insuficiente' : 'comprar' }}
         </v-btn>
       </v-container>
     </v-card>
@@ -26,6 +31,14 @@ export default {
   data () {
     return {
       quantity: 0,
+    }
+  },
+  computed: {
+    funds () {
+      return this.$store.getters.funds;
+    },
+    insufficientFunds () {
+      return this.quantity * this.stock.price > this.funds;
     }
   },
   methods: {
